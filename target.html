@@ -1,0 +1,2089 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neon Finance Achievements</title>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/MorphSVGPlugin.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+    /* Main Colors */
+    --bg-primary: #0a0e17;
+    --bg-secondary: #111827;
+    --bg-tertiary: #1f2937;
+    --bg-card: linear-gradient(145deg, #131b2e, #1a2540);
+    --glass: rgba(255, 255, 255, 0.05);
+    --glass-hover: rgba(255, 255, 255, 0.08);
+    
+    /* Accent Colors */
+    --accent-primary: #4f46e5;
+    --accent-primary-hover: #6366f1;
+    --accent-primary-glow: rgba(79, 70, 229, 0.5);
+    --accent-secondary: #8b5cf6;
+    --accent-tertiary: #ec4899;
+    --accent-quaternary: #06b6d4;
+    
+    /* Gradient Colors */
+    --gradient-primary: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+    --gradient-secondary: linear-gradient(135deg, var(--accent-tertiary) 0%, var(--accent-quaternary) 100%);
+    --gradient-text: linear-gradient(135deg, #fff 0%, #c7d2fe 100%);
+    
+    /* Text Colors */
+    --text-primary: rgba(255, 255, 255, 0.95);
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --text-tertiary: rgba(255, 255, 255, 0.5);
+    
+    /* Status Colors */
+    --positive: #10b981;
+    --positive-light: rgba(16, 185, 129, 0.2);
+    --negative: #ef4444;
+    --negative-light: rgba(239, 68, 68, 0.2);
+    --warning: #f59e0b;
+    --info: #3b82f6;
+    
+    /* Achievement Colors */
+    --achievement-easy: #64748b;
+    --achievement-medium: #8b5cf6;
+    --achievement-hard: #ec4899;
+    --achievement-special: #f59e0b;
+    
+    /* Border Colors */
+    --border: rgba(255, 255, 255, 0.1);
+    --border-hover: rgba(255, 255, 255, 0.2);
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+    --shadow-glow: 0 0 20px var(--accent-primary-glow);
+    --shadow-card: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
+    
+    /* Transitions */
+    --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Sizes */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
+    --radius-full: 9999px;
+    
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+    
+    /* Font */
+    --font-sans: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-display: 'Montserrat', var(--font-sans);
+}
+
+:root.light-theme {
+    --bg-primary: #f8fafc;
+    --bg-secondary: #f1f5f9;
+    --bg-tertiary: #e2e8f0;
+    --bg-card: linear-gradient(145deg, #f8fafc, #f1f5f9);
+    --glass: rgba(0, 0, 0, 0.03);
+    --glass-hover: rgba(0, 0, 0, 0.06);
+    
+    --accent-primary: #4f46e5;
+    --accent-primary-hover: #4338ca;
+    --accent-primary-glow: rgba(79, 70, 229, 0.3);
+    --accent-secondary: #8b5cf6;
+    --accent-tertiary: #ec4899;
+    --accent-quaternary: #06b6d4;
+    
+    --gradient-text: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    
+    --text-primary: rgba(15, 23, 42, 0.95);
+    --text-secondary: rgba(15, 23, 42, 0.7);
+    --text-tertiary: rgba(15, 23, 42, 0.5);
+    
+    /* Status Colors */
+    --positive: #059669;
+    --positive-light: rgba(5, 150, 105, 0.2);
+    --negative: #dc2626;
+    --negative-light: rgba(220, 38, 38, 0.2);
+    --warning: #f59e0b;
+    --info: #3b82f6;
+    
+    /* Achievement Colors */
+    --achievement-easy: #64748b;
+    --achievement-medium: #8b5cf6;
+    --achievement-hard: #ec4899;
+    --achievement-special: #f59e0b;
+    
+    /* Border Colors */
+    --border: rgba(0, 0, 0, 0.1);
+    --border-hover: rgba(0, 0, 0, 0.2);
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-card: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-sans);
+}
+
+body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: var(--spacing-xl);
+    overflow-x: hidden;
+    position: relative;
+    transition: background-color 0.5s ease;
+    line-height: 1.5;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 10% 20%, rgba(79, 70, 229, 0.08) 0%, transparent 30%),
+        radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 30%),
+        radial-gradient(circle at 50% 50%, rgba(236, 72, 153, 0.05) 0%, transparent 50%);
+    z-index: -1;
+    animation: gradientMove 20s ease-in-out infinite alternate;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 100%; }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--text-primary);
+}
+
+h1 {
+    font-size: 2.75rem;
+    margin-bottom: var(--spacing-md);
+    letter-spacing: -0.05em;
+}
+
+h2 {
+    font-size: 1.75rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+h3 {
+    font-size: 1.25rem;
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+p {
+    margin-bottom: var(--spacing-md);
+    color: var(--text-secondary);
+}
+
+small {
+    font-size: 0.875rem;
+    color: var(--text-tertiary);
+}
+
+.dashboard {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    gap: var(--spacing-xl);
+    grid-template-columns: repeat(12, 1fr);
+}
+
+.card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: var(--spacing-xl);
+    transition: var(--transition-normal);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg, 
+        transparent 0%, 
+        transparent 20%, 
+        rgba(79, 70, 229, 0.05) 40%, 
+        rgba(139, 92, 246, 0.05) 60%, 
+        rgba(236, 72, 153, 0.05) 80%, 
+        transparent 100%
+    );
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.card:hover::before {
+    opacity: 1;
+    animation: cardGradient 3s linear infinite;
+}
+
+@keyframes cardGradient {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 100%; }
+}
+
+.card:hover {
+    transform: translateY(-8px) rotateX(2deg) rotateY(2deg);
+    box-shadow: 
+        0 20px 25px -5px rgba(0, 0, 0, 0.3),
+        0 10px 10px -5px rgba(0, 0, 0, 0.2),
+        0 0 20px var(--accent-primary-glow);
+    border-color: var(--border-hover);
+}
+
+.card-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-primary);
+    opacity: 0.9;
+    box-shadow: 0 0 10px var(--accent-primary-glow);
+}
+
+.header-card {
+    grid-column: span 12;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    text-align: center;
+}
+
+.header-card h1 {
+    font-size: 3.5rem;
+    margin-bottom: var(--spacing-xs);
+    background: linear-gradient(135deg, #fff 0%, var(--accent-primary) 50%, var(--accent-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% 200%;
+    animation: gradientText 5s ease infinite;
+    text-shadow: 0 0 30px var(--accent-primary-glow);
+}
+
+@keyframes gradientText {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.stats-container {
+    grid-column: span 12;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
+}
+
+.stats-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: var(--spacing-lg);
+}
+
+.stats-card h2 {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-xs);
+}
+
+.stats-card p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+}
+
+.stats-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-md);
+    color: var(--accent-primary);
+}
+
+.achievements-container {
+    grid-column: span 12;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-lg);
+}
+
+.achievements-header {
+    grid-column: span 4;
+    margin-bottom: var(--spacing-md);
+}
+
+.achievement-card {
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    transition: var(--transition-normal);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.achievement-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--achievement-easy);
+    transition: var(--transition-normal);
+}
+
+.achievement-card.medium::before {
+    background: var(--achievement-medium);
+    box-shadow: 0 0 10px var(--achievement-medium);
+}
+
+.achievement-card.hard::before {
+    background: var(--achievement-hard);
+    box-shadow: 0 0 10px var(--achievement-hard);
+}
+
+.achievement-card.special::before {
+    background: var(--achievement-special);
+    box-shadow: 0 0 10px var(--achievement-special);
+}
+
+.achievement-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.achievement-card.unlocked {
+    background: linear-gradient(145deg, rgba(79, 70, 229, 0.1), rgba(139, 92, 246, 0.1));
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 15px var(--accent-primary-glow);
+}
+
+.achievement-card.unlocked::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at center, rgba(79, 70, 229, 0.2) 0%, transparent 70%);
+    z-index: -1;
+    animation: pulseGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+    0% { opacity: 0.3; }
+    100% { opacity: 0.7; }
+}
+
+.achievement-icon {
+    font-size: 2rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-tertiary);
+    transition: var(--transition-normal);
+}
+
+.achievement-card.unlocked .achievement-icon {
+    color: var(--accent-primary);
+    text-shadow: 0 0 10px var(--accent-primary-glow);
+}
+
+.achievement-card.medium.unlocked .achievement-icon {
+    color: var(--achievement-medium);
+    text-shadow: 0 0 10px var(--achievement-medium);
+}
+
+.achievement-card.hard.unlocked .achievement-icon {
+    color: var(--achievement-hard);
+    text-shadow: 0 0 10px var(--achievement-hard);
+}
+
+.achievement-card.special.unlocked .achievement-icon {
+    color: var(--achievement-special);
+    text-shadow: 0 0 10px var(--achievement-special);
+}
+
+.achievement-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-xs);
+}
+
+.achievement-description {
+    font-size: 0.9rem;
+    color: var(--text-tertiary);
+}
+
+.achievement-type {
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+    margin-top: 0.25rem;
+    font-style: italic;
+}
+
+.achievement-date {
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+    margin-top: var(--spacing-xs);
+    text-align: right;
+    font-style: italic;
+}
+
+.achievement-progress {
+    margin-top: var(--spacing-sm);
+    width: 100%;
+    height: 6px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.achievement-progress-bar {
+    height: 100%;
+    background: var(--accent-primary);
+    border-radius: var(--radius-full);
+    transition: width 1s ease;
+}
+
+.achievement-card.medium .achievement-progress-bar {
+    background: var(--achievement-medium);
+}
+
+.achievement-card.hard .achievement-progress-bar {
+    background: var(--achievement-hard);
+}
+
+.achievement-card.special .achievement-progress-bar {
+    background: var(--achievement-special);
+}
+
+.achievement-progress-text {
+    font-size: 0.8rem;
+    color: var(--text-tertiary);
+    margin-top: var(--spacing-xs);
+    text-align: right;
+}
+
+.achievement-badge {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-full);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    background: var(--achievement-easy);
+    color: white;
+}
+
+.achievement-badge.medium {
+    background: var(--achievement-medium);
+}
+
+.achievement-badge.hard {
+    background: var(--achievement-hard);
+}
+
+.achievement-badge.special {
+    background: var(--achievement-special);
+}
+
+.theme-toggle {
+    position: fixed;
+    top: var(--spacing-xl);
+    left: var(--spacing-xl);
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-full);
+    background: var(--bg-card);
+    color: var(--accent-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    border: 1px solid var(--border);
+    z-index: 100;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.theme-toggle::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-primary);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.theme-toggle:hover {
+    transform: translateY(-4px);
+    color: white;
+    box-shadow: var(--shadow-glow);
+}
+
+.theme-toggle:hover::before {
+    opacity: 1;
+}
+
+.theme-toggle svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    position: relative;
+    z-index: 1;
+}
+
+.nav-bar {
+    position: fixed;
+    top: var(--spacing-xl);
+    right: var(--spacing-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    z-index: 100;
+}
+
+.nav-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-full);
+    background: var(--bg-card);
+    color: var(--accent-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    border: 1px solid var(--border);
+    font-size: 1.25rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-icon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-primary);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.nav-icon:hover {
+    transform: translateY(-4px);
+    color: white;
+    box-shadow: var(--shadow-glow);
+}
+
+.nav-icon:hover::before {
+    opacity: 1;
+}
+
+.nav-icon ion-icon {
+    position: relative;
+    z-index: 1;
+}
+
+.glow-cursor {
+    position: fixed;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--accent-primary-glow) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    mix-blend-mode: screen;
+}
+
+.notification {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    color: white;
+    font-weight: 500;
+    z-index: 9999;
+    opacity: 0;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-md);
+}
+
+.notification.success {
+    background: linear-gradient(135deg, var(--positive), #34d399);
+}
+
+.notification.error {
+    background: linear-gradient(135deg, var(--negative), #f87171);
+}
+
+.notification.info {
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+}
+
+.particle {
+    position: fixed;
+    width: 3px;
+    height: 3px;
+    background: var(--accent-primary);
+    border-radius: var(--radius-full);
+    pointer-events: none;
+    opacity: 0.3;
+    z-index: -1;
+    filter: blur(1px);
+}
+
+.star {
+    position: fixed;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: var(--radius-full);
+    pointer-events: none;
+    opacity: 0.5;
+    z-index: -1;
+    animation: starFloat 15s linear infinite;
+    filter: blur(0.5px);
+}
+
+.sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--accent-primary);
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10;
+    filter: blur(0.5px);
+    box-shadow: 0 0 10px var(--accent-primary-glow);
+}
+
+@keyframes sparkleAnimation {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(0); opacity: 0; }
+}
+
+@keyframes starFloat {
+    0% { transform: translateY(100vh) rotate(0deg); }
+    100% { transform: translateY(-100vh) rotate(360deg); }
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+    .achievements-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .achievements-header {
+        grid-column: span 3;
+    }
+}
+
+@media (max-width: 992px) {
+    .achievements-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .achievements-header {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: var(--spacing-md);
+    }
+
+    .dashboard {
+        gap: var(--spacing-md);
+    }
+
+    .stats-container {
+        grid-template-columns: 1fr;
+    }
+
+    .achievements-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .achievements-header {
+        grid-column: span 1;
+    }
+
+    .nav-bar {
+        top: auto;
+        bottom: var(--spacing-xl);
+        right: var(--spacing-xl);
+        flex-direction: row;
+    }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--gradient-primary);
+    border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--gradient-secondary);
+}
+
+/* Filter buttons */
+.filter-container {
+    grid-column: span 12;
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--radius-full);
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: var(--transition-normal);
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+}
+
+.filter-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-primary);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.filter-btn:hover::before {
+    opacity: 0.1;
+}
+
+.filter-btn.active {
+    background: var(--gradient-primary);
+    color: white;
+    border: none;
+    box-shadow: var(--shadow-glow);
+}
+
+.filter-btn.active::before {
+    opacity: 0;
+}
+
+.filter-btn.easy.active {
+    background: linear-gradient(135deg, var(--achievement-easy), #94a3b8);
+}
+
+.filter-btn.medium.active {
+    background: linear-gradient(135deg, var(--achievement-medium), #a78bfa);
+}
+
+.filter-btn.hard.active {
+    background: linear-gradient(135deg, var(--achievement-hard), #f472b6);
+}
+
+.filter-btn.special.active {
+    background: linear-gradient(135deg, var(--achievement-special), #fbbf24);
+}
+
+/* Progress bar animation */
+@keyframes progressFill {
+    from { width: 0; }
+    to { width: var(--progress-width); }
+}
+
+.achievement-progress-bar {
+    animation: progressFill 1.5s ease-out forwards;
+}
+</style>
+</head>
+<body>
+<div class="glow-cursor"></div>
+
+<div class="theme-toggle" onclick="toggleTheme()">
+<svg viewBox="0 0 24 24" id="theme-icon">
+    <path id="moon" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    <circle id="sun" cx="12" cy="12" r="5" style="display:none;"/>
+    <line id="sun-ray-1" x1="12" y1="1" x2="12" y2="3" style="display:none;"/>
+    <line id="sun-ray-2" x1="12" y1="21" x2="12" y2="23" style="display:none;"/>
+    <line id="sun-ray-3" x1="4.22" y1="4.22" x2="5.64" y2="5.64" style="display:none;"/>
+    <line id="sun-ray-4" x1="18.36" y1="18.36" x2="19.78" y2="19.78" style="display:none;"/>
+    <line id="sun-ray-5" x1="1" y1="12" x2="3" y2="12" style="display:none;"/>
+    <line id="sun-ray-6" x1="21" y1="12" x2="23" y2="12" style="display:none;"/>
+    <line id="sun-ray-7" x1="4.22" y1="19.78" x2="5.64" y2="18.36" style="display:none;"/>
+    <line id="sun-ray-8" x1="18.36" y1="5.64" x2="19.78" y2="4.22" style="display:none;"/>
+</svg>
+</div>
+
+<div class="nav-bar">
+<div class="nav-icon" onclick="window.location.href='index.html'">
+    <ion-icon name="home-outline"></ion-icon>
+</div>
+</div>
+
+<div class="dashboard">
+    <div class="card header-card float-animation">
+        <div class="card-glow"></div>
+        <h1>Достижения</h1>
+        <p>Отслеживайте свой прогресс и получайте награды за успешные трейды</p>
+    </div>
+
+    <div class="stats-container">
+        <div class="card stats-card">
+            <div class="card-glow"></div>
+            <div class="stats-icon">
+                <ion-icon name="trending-up-outline"></ion-icon>
+            </div>
+            <h2 id="totalTrades">0</h2>
+            <p>Всего трейдов</p>
+        </div>
+        
+        <div class="card stats-card">
+            <div class="card-glow"></div>
+            <div class="stats-icon">
+                <ion-icon name="cash-outline"></ion-icon>
+            </div>
+            <h2 id="totalProfit">$0</h2>
+            <p>Общий профит</p>
+        </div>
+        
+        <div class="card stats-card">
+            <div class="card-glow"></div>
+            <div class="stats-icon">
+                <ion-icon name="trophy-outline"></ion-icon>
+            </div>
+            <h2 id="totalAchievements">0/40</h2>
+            <p>Достижения</p>
+        </div>
+    </div>
+
+    <div class="filter-container">
+        <button class="filter-btn active" data-filter="all">Все достижения</button>
+        <button class="filter-btn easy" data-filter="easy">Лёгкие</button>
+        <button class="filter-btn medium" data-filter="medium">Средние</button>
+        <button class="filter-btn hard" data-filter="hard">Сложные</button>
+        <button class="filter-btn special" data-filter="special">Особые</button>
+    </div>
+
+    <div class="achievements-container" id="easy-achievements">
+        <!-- Лёгкие достижения будут добавлены динамически -->
+    </div>
+
+    <div class="achievements-header">
+        <h2>Средние достижения</h2>
+        <p>Для опытных трейдеров</p>
+    </div>
+
+    <div class="achievements-container" id="medium-achievements">
+        <!-- Средние достижения будут добавлены динамически -->
+    </div>
+
+    <div class="achievements-header">
+        <h2>Сложные достижения</h2>
+        <p>Для настоящих профессионалов</p>
+    </div>
+
+    <div class="achievements-container" id="hard-achievements">
+        <!-- Сложные достижения будут добавлены динамически -->
+    </div>
+
+    <div class="achievements-header">
+        <h2>Особые достижения</h2>
+        <p>Только для избранных</p>
+    </div>
+
+    <div class="achievements-container" id="special-achievements">
+        <!-- Особые достижения будут добавлены динамически -->
+    </div>
+</div>
+
+<script>
+// Определение достижений
+const achievements = [
+    // Лёгкие достижения
+    {
+        id: 'first-deal',
+        title: 'Первая сделка',
+        description: 'Соверши свою первую трейд-сделку',
+        icon: 'water-outline',
+        category: 'easy',
+        condition: (stats) => stats.trades >= 1,
+        progress: (stats) => Math.min(stats.trades, 1),
+        target: 1,
+        format: (value) => `${value}/1`,
+        transactionType: 'regular' // Тип транзакции: обычная
+    },
+    {
+        id: 'trader-path',
+        title: 'Путь трейдера',
+        description: 'Соверши 5 сделок',
+        icon: 'footsteps-outline',
+        category: 'easy',
+        condition: (stats) => stats.trades >= 5,
+        progress: (stats) => Math.min(stats.trades, 5),
+        target: 5,
+        format: (value) => `${value}/5`,
+        transactionType: 'regular' // Тип транзакции: обычная
+    },
+    {
+        id: 'small-dealer',
+        title: 'Мелкий барыга',
+        description: 'Соверши 10 сделок',
+        icon: 'bag-handle-outline',
+        category: 'easy',
+        condition: (stats) => stats.trades >= 10,
+        progress: (stats) => Math.min(stats.trades, 10),
+        target: 10,
+        format: (value) => `${value}/10`,
+        transactionType: 'regular' // Тип транзакции: обычная
+    },
+    {
+        id: 'stable-growth',
+        title: 'Стабильный рост',
+        description: 'Соверши 20 сделок',
+        icon: 'trending-up-outline',
+        category: 'easy',
+        condition: (stats) => stats.trades >= 20,
+        progress: (stats) => Math.min(stats.trades, 20),
+        target: 20,
+        format: (value) => `${value}/20`,
+        transactionType: 'regular' // Тип транзакции: обычная
+    },
+    {
+        id: 'first-profit',
+        title: 'Первая прибыль',
+        description: 'Заверши сделку с прибылью',
+        icon: 'cash-outline',
+        category: 'easy',
+        condition: (stats) => stats.profitDeals >= 1,
+        progress: (stats) => Math.min(stats.profitDeals, 1),
+        target: 1,
+        format: (value) => `${value}/1`,
+        transactionType: 'extended' // Тип транзакции: расширенная
+    },
+    {
+        id: 'first-luck',
+        title: 'Первая удача',
+        description: 'Соверши сделку с прибылью 10% и больше',
+        icon: 'sparkles-outline',
+        category: 'easy',
+        condition: (stats) => stats.highProfitDeals >= 1,
+        progress: (stats) => Math.min(stats.highProfitDeals, 1),
+        target: 1,
+        format: (value) => `${value}/1`,
+        transactionType: 'extended' // Тип транзакции: расширенная
+    },
+    {
+        id: 'no-losses',
+        title: 'Никаких сливов',
+        description: 'Соверши 10 успешных сделок подряд без убытков',
+        icon: 'shield-checkmark-outline',
+        category: 'easy',
+        condition: (stats) => stats.consecutiveProfitDeals >= 10,
+        progress: (stats) => Math.min(stats.consecutiveProfitDeals, 10),
+        target: 10,
+        format: (value) => `${value}/10`,
+        transactionType: 'extended' // Тип транзакции: расширенная
+    },
+    {
+        id: 'first-failure',
+        title: 'Первая неудача',
+        description: 'Заверши сделку в минус (рофл-достижение)',
+        icon: 'sad-outline',
+        category: 'easy',
+        condition: (stats) => stats.lossDeals >= 1,
+        progress: (stats) => Math.min(stats.lossDeals, 1),
+        target: 1,
+        format: (value) => `${value}/1`,
+        transactionType: 'extended' // Тип транзакции: расширенная
+    },
+    {
+        id: 'base-capital',
+        title: 'Базовый капитал',
+        description: 'Соверши сделку на сумму 50$',
+        icon: 'wallet-outline',
+        category: 'easy',
+        condition: (stats) => stats.maxDealAmount >= 50,
+        progress: (stats) => Math.min(stats.maxDealAmount, 50),
+        target: 50,
+        format: (value) => `$${(Math.round(value * 100) / 100).toFixed(2)}/$50.00`,
+        transactionType: 'extended' // Тип транзакции: расширенная
+    },
+    {
+        id: 'mini-investor',
+        title: 'Мини-инвестор',
+        description: 'Соверши 3 сделки на сумму 100$ каждая',
+        icon: 'briefcase-outline',
+        category: 'easy',
+        condition: (stats) => stats.bigDeals >= 3,
+        progress: (stats) => Math.min(stats.bigDeals, 3),
+        target: 3,
+        format: (value) => `${value}/3`,
+        transactionType: 'extended' // Тип транзакции: расширенная
+    },
+    
+    // Средние достижения
+    {
+        id: 'experienced-trader',
+        title: 'Торговец со стажем',
+        description: 'Соверши 50 сделок',
+        icon: 'time-outline',
+        category: 'medium',
+        condition: (stats) => stats.trades >= 50,
+        progress: (stats) => Math.min(stats.trades, 50),
+        target: 50,
+        format: (value) => `${value}/50`,
+        transactionType: 'regular' // Тип транзакции: обычная
+    },
+    {
+        id: 'cool-dealer',
+        title: 'Крутой барыга',
+        description: 'Соверши 100 сделок',
+        icon: 'bag-check-outline',
+        category: 'medium',
+        condition: (stats) => stats.trades >= 100,
+        progress: (stats) => Math.min(stats.trades, 100),
+        target: 100,
+        format: (value) => `${value}/100`,
+        transactionType: 'regular' // Тип транзакции: обычная
+    },
+    {
+        id: 'serious-amounts',
+        title: 'Серьёзные суммы',
+        description: 'Соверши сделку на сумму 250$',
+        icon: 'cash-outline',
+        category: 'medium',
+        condition: (stats) => stats.maxDealAmount >= 250,
+        progress: (stats) => Math.min(stats.maxDealAmount, 250),
+        target: 250,
+        format: (value) => `$${(Math.round(value * 100) / 100).toFixed(2)}/$250.00`,
+        transactionType: 'extended' // Тип транзакции: расширенная
+    },
+    {
+        id: 'success-rush',
+        title: 'Рывок к успеху',
+        description: 'Соверши 10 сделок с прибылью от 20%',
+        icon: 'rocket-outline',
+        category: 'medium',
+        condition: (stats) => stats.highProfitDeals >= 10,
+        progress: (stats) => Math.min(stats.highProfitDeals, 10),
+        target: 10,
+        format: (value) => `${value}/10`,
+        transactionType: 'extended' // Тип транзакции: расширенная
+    },
+    {
+        id: 'plus-streak',
+        title: 'Плюсовая полоса',
+        description: 'Соверши 25 успешных сделок подряд без убытков',
+        icon: 'shield-half-outline',
+        category: 'medium',
+        condition: (stats) => stats.consecutiveProfitDeals >= 25,
+        progress: (stats) => Math.min(stats.consecutiveProfitDeals, 25),
+        target: 25,
+        format: (value) => `${value}/25`,
+        transactionType: 'extended' // Тип транзакции: расширенная
+    },
+    {
+        id: 'big-money',
+        title: 'Большие деньги',
+        description: 'Соверши сделку на сумму 500$',
+        icon: 'cash-outline',
+        category: 'medium',
+        condition: (stats) => stats.maxDealAmount >= 500,
+        progress: (stats) => Math.min(stats.maxDealAmount, 500),
+        target: 500,
+        format: (value) => `$${(Math.round(value * 100) / 100).toFixed(2)}/$500.00`,
+        transactionType: 'extended' // Тип транзакции: расширенная
+    },
+    {
+        id: 'risky-business',
+        title: 'Рискованное дело',
+        description: 'Заверши сделку с убытком от 50$ (рофл-достижение)',
+        icon: 'alert-circle-outline',
+        category: 'medium',
+        condition: (stats) => stats.maxLoss >= 50,
+        progress: (stats) => Math.min(stats.maxLoss, 50),
+        target: 50,
+        format: (value) => `$${(Math.round(value * 100) / 100).toFixed(2)}/$50.00`,
+        transactionType: 'extended' // Тип транзакции: расширенная
+    },
+    {
+        id: 'serial-trader',
+        title: 'Серийный трейдер',
+        description: 'Соверши 200 сделок',
+        icon: 'repeat-outline',
+        category: 'medium',
+        condition: (stats) => stats.trades >= 200,
+        progress: (stats) => Math.min(stats.trades, 200),
+        target: 200,
+        format: (value) => `${value}/200`,
+        transactionType: 'regular' // Тип транзакции: обычная
+    },
+    {
+        id: 'stable-income',
+        title: 'Стабильный доход',
+        description: 'Заверши 50 сделок с прибылью',
+        icon: 'trending-up-outline',
+        category: 'medium',
+        condition: (stats) => stats.profitDeals >= 50,
+        progress: (stats) => Math.min(stats.profitDeals, 50),
+        target: 50,
+        format: (value) => `${value}/50`,
+        transactionType: 'extended' // Тип транзакции: расширенная
+    },
+    {
+        id: 'money-flow',
+        title: 'Денежный поток',
+        description: 'Заработай 500$ на сделках',
+        icon: 'cash-outline',
+        category: 'medium',
+        condition: (stats) => stats.totalProfit >= 500,
+        progress: (stats) => Math.min(stats.totalProfit, 500),
+        target: 500,
+        format: (value) => `$${(Math.round(value * 100) / 100).toFixed(2)}/$500.00`,
+        transactionType: 'regular' // Тип транзакции: обычная
+    },
+    
+    // Сложные достижения
+    {
+        id: 'trade-machine',
+        title: 'Трейд-машина',
+        description: 'Соверши 500 сделок',
+        icon: 'cog-outline',
+        category: 'hard',
+        condition: (stats) => stats.trades >= 500,
+        progress: (stats) => Math.min(stats.trades, 500),
+        target: 500,
+        format: (value) => `${value}/500`,
+        transactionType: 'regular' // Тип транзакции: обычная
+    },
+    {
+        id: 'percent-mage',
+        title: 'Процентный маг',
+        description: 'Заверши сделку с прибылью 100% или больше',
+        icon: 'flash-outline',
+        category: 'hard',
+        condition: (stats) => stats.maxProfitPercentage >= 100,
+        progress: (stats) => Math.min(stats.maxProfitPercentage, 100),
+        target: 100,
+        format: (value) => `${(Math.round(value * 100) / 100).toFixed(2)}%/100.00%`,
+        transactionType: 'extended' // Тип транзакции: расширенная
+    },
+    {
+        id: 'high-roller',
+        title: 'Хайроллер',
+        description: 'Соверши сделку на сумму более 1000$',
+        icon: 'diamond-outline',
+        category: 'hard',
+        condition: (stats) => stats.maxDealAmount >= 1000,
+        progress: (stats) => Math.min(stats.maxDealAmount, 1000),
+        target: 1000,
+        format: (value) => `$${(Math.round(value * 100) / 100).toFixed(2)}/$1000.00`,
+        transactionType: 'extended' // Тип транзакции: расширенная
+    },
+    {
+        id: 'financial-maniac',
+        title: 'Финансовый маньяк',
+        description: 'Соверши 50 сделок на сумму более 500$ каждая',
+        icon: 'flame-outline',
+        category: 'hard',
+        condition: (stats) => stats.bigDeals500 >= 50,
+        progress: (stats) => Math.min(stats.bigDeals500, 50),
+        target: 50,
+        format: (value) => `${value}/50`,
+        transactionType: 'extended' // Тип транзакции: расширенная
+    },
+    {
+        id: 'best-trader-month',
+        title: 'Лучший трейдер месяца',
+        description: 'Сделай самую прибыльную сделку месяца',
+        icon: 'calendar-outline',
+        category: 'hard',
+        condition: (stats) => stats.bestTraderMonth,
+        progress: (stats) => stats.bestTraderMonth ? 1 : 0,
+        target: 1,
+        format: (value) => `${value}/1`,
+        transactionType: 'extended' // Тип транзакции: расширенная
+    },
+    {
+        id: 'worst-trader-month',
+        title: 'Терпи убытки',
+        description: 'Сделай самую убыточную сделку месяца (рофл-достижение)',
+        icon: 'trending-down-outline',
+        category: 'hard',
+        condition: (stats) => stats.worstTraderMonth,
+        progress: (stats) => stats.worstTraderMonth ? 1 : 0,
+        target: 1,
+        format: (value) => `${value}/1`,
+        transactionType: 'extended' // Тип транзакции: расширенная
+    },
+    {
+        id: 'professional-trader',
+        title: 'Профессиональный трейдер',
+        description: 'Соверши 1000 сделок',
+        icon: 'ribbon-outline',
+        category: 'hard',
+        condition: (stats) => stats.trades >= 1000,
+        progress: (stats) => Math.min(stats.trades, 1000),
+        target: 1000,
+        format: (value) => `${value}/1000`,
+        transactionType: 'regular' // Тип транзакции: обычная
+    },
+    {
+        id: 'big-player',
+        title: 'Крупный игрок',
+        description: 'Соверши 10 сделок на сумму более 1000$ каждая',
+        icon: 'wallet-outline',
+        category: 'hard',
+        condition: (stats) => stats.bigDeals1000 >= 10,
+        progress: (stats) => Math.min(stats.bigDeals1000, 10),
+        target: 10,
+        format: (value) => `${value}/10`,
+        transactionType: 'extended' // Тип транзакции: расширенная
+    },
+    {
+        id: 'future-millionaire',
+        title: 'Миллионер будущего',
+        description: 'Соверши сделку на сумму 2500$',
+        icon: 'cash-outline',
+        category: 'hard',
+        condition: (stats) => stats.maxDealAmount >= 2500,
+        progress: (stats) => Math.min(stats.maxDealAmount, 2500),
+        target: 2500,
+        format: (value) => `$${(Math.round(value * 100) / 100).toFixed(2)}/$2500.00`,
+        transactionType: 'extended' // Тип транзакции: расширенная
+    },
+    {
+        id: 'trade-king',
+        title: 'Король трейда',
+        description: 'Заработай 5000$ на сделках',
+        icon: 'crown-outline',
+        category: 'hard',
+        condition: (stats) => stats.totalProfit >= 5000,
+        progress: (stats) => Math.min(stats.totalProfit, 5000),
+        target: 5000,
+        format: (value) => `$${(Math.round(value * 100) / 100).toFixed(2)}/$5000.00`,
+        transactionType: 'regular' // Тип транзакции: обычная
+    },
+    
+    // Особые достижения
+    {
+        id: 'market-legend',
+        title: 'Легенда рынка',
+        description: 'Соверши 2000 сделок',
+        icon: 'star-outline',
+        category: 'special',
+        condition: (stats) => stats.trades >= 2000,
+        progress: (stats) => Math.min(stats.trades, 2000),
+        target: 2000,
+        format: (value) => `${value}/2000`,
+        transactionType: 'regular' // Тип транзакции: обычная
+    },
+    {
+        id: 'deal-of-century',
+        title: 'Сделка века',
+        description: 'Соверши сделку с прибылью 500% или больше',
+        icon: 'nuclear-outline',
+        category: 'special',
+        condition: (stats) => stats.maxProfitPercentage >= 500,
+        progress: (stats) => Math.min(stats.maxProfitPercentage, 500),
+        target: 500,
+        format: (value) => `${(Math.round(value * 100) / 100).toFixed(2)}%/500.00%`,
+        transactionType: 'extended' // Тип транзакции: расширенная
+    },
+    {
+        id: 'trade-genius',
+        title: 'Гений трейда',
+        description: 'Соверши 100 успешных сделок подряд',
+        icon: 'bulb-outline',
+        category: 'special',
+        condition: (stats) => stats.consecutiveProfitDeals >= 100,
+        progress: (stats) => Math.min(stats.consecutiveProfitDeals, 100),
+        target: 100,
+        format: (value) => `${value}/100`,
+        transactionType: 'extended' // Тип транзакции: расширенная
+    },
+    {
+        id: 'crazy-trade',
+        title: 'Шальной трейд',
+        description: 'Соверши сделку на сумму 5000$',
+        icon: 'flame-outline',
+        category: 'special',
+        condition: (stats) => stats.maxDealAmount >= 5000,
+        progress: (stats) => Math.min(stats.maxDealAmount, 5000),
+        target: 5000,
+        format: (value) => `$${(Math.round(value * 100) / 100).toFixed(2)}/$5000.00`,
+        transactionType: 'extended' // Тип транзакции: расширенная
+    },
+    {
+        id: 'fall-and-rise',
+        title: 'Падение и взлёт',
+        description: 'Слей 1000$ на сделках, но потом верни их обратно в плюс',
+        icon: 'pulse-outline',
+        category: 'special',
+        condition: (stats) => stats.hadBigLossThenRecovered,
+        progress: (stats) => stats.hadBigLossThenRecovered ? 1 : 0,
+        target: 1,
+        format: (value) => `${value}/1`,
+        transactionType: 'extended' // Тип транзакции: расширенная
+    },
+    {
+        id: 'fastest-trader',
+        title: 'Самый быстрый трейдер',
+        description: 'Соверши 50 сделок за один день',
+        icon: 'stopwatch-outline',
+        category: 'special',
+        condition: (stats) => stats.maxTradesPerDay >= 50,
+        progress: (stats) => Math.min(stats.maxTradesPerDay, 50),
+        target: 50,
+        format: (value) => `${value}/50`,
+        transactionType: 'regular' // Тип транзакции: обычная
+    },
+    {
+        id: 'market-control',
+        title: 'Рынок под контролем',
+        description: 'Соверши 500 успешных сделок подряд',
+        icon: 'shield-outline',
+        category: 'special',
+        condition: (stats) => stats.consecutiveProfitDeals >= 500,
+        progress: (stats) => Math.min(stats.consecutiveProfitDeals, 500),
+        target: 500,
+        format: (value) => `${value}/500`,
+        transactionType: 'extended' // Тип транзакции: расширенная
+    },
+    {
+        id: 'golden-deal',
+        title: 'Золотая сделка',
+        description: 'Заработай 1000$ с одной сделки',
+        icon: 'medal-outline',
+        category: 'special',
+        condition: (stats) => stats.maxProfitAmount >= 1000,
+        progress: (stats) => Math.min(stats.maxProfitAmount, 1000),
+        target: 1000,
+        format: (value) => `$${(Math.round(value * 100) / 100).toFixed(2)}/$1000.00`,
+        transactionType: 'extended' // Тип транзакции: расширенная
+    },
+    {
+        id: 'path-to-million',
+        title: 'Путь к миллиону',
+        description: 'Заработай 10 000$ на трейде',
+        icon: 'diamond-outline',
+        category: 'special',
+        condition: (stats) => stats.totalProfit >= 10000,
+        progress: (stats) => Math.min(stats.totalProfit, 10000),
+        target: 10000,
+        format: (value) => `$${(Math.round(value * 100) / 100).toFixed(2)}/$10000.00`,
+        transactionType: 'regular' // Тип транзакции: обычная
+    },
+    {
+        id: 'trade-emperor',
+        title: 'Император трейда',
+        description: 'Соверши 5000 сделок',
+        icon: 'planet-outline',
+        category: 'special',
+        condition: (stats) => stats.trades >= 5000,
+        progress: (stats) => Math.min(stats.trades, 5000),
+        target: 5000,
+        format: (value) => `${value}/5000`,
+        transactionType: 'regular' // Тип транзакции: обычная
+    }
+];
+
+// Функция для инициализации страницы
+function initPage() {
+    // Создаем эффекты
+    createParticles();
+    createStars();
+    initGlowCursor();
+    
+    // Загружаем данные пользователя
+    loadUserData();
+    
+    // Отображаем достижения
+    renderAchievements();
+    
+    // Добавляем обработчики для фильтров
+    setupFilters();
+}
+
+// Функция для загрузки данных пользователя из localStorage
+function loadUserData() {
+    // Получаем данные из localStorage, используя те же ключи, что и в index.html
+    const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+    
+    // Получаем количество трейдов и общий профит
+    const trades = transactions.length;
+    
+    // Рассчитываем общий профит
+    let totalProfit = 0;
+    transactions.forEach(t => {
+        if (t.type === 'income') {
+            totalProfit += parseFloat(t.amount);
+        } else if (t.type === 'expense') {
+            totalProfit -= parseFloat(t.amount);
+        }
+    });
+    
+    // Обновляем статистику на странице
+    document.getElementById('totalTrades').textContent = trades;
+    document.getElementById('totalProfit').textContent = formatCurrency(totalProfit);
+    
+    // Анализируем транзакции для расчета метрик достижений
+    calculateAchievementStats(transactions, trades, totalProfit);
+    
+    // Выводим в консоль для отладки
+    console.log('Загружено транзакций:', trades);
+    console.log('Общий профит:', totalProfit);
+    console.log('Данные транзакций:', transactions);
+    
+    // Загружаем сохраненные достижения
+    loadSavedAchievements();
+}
+
+// Функция для загрузки сохраненных достижений
+function loadSavedAchievements() {
+    const savedAchievements = JSON.parse(localStorage.getItem('unlockedAchievements')) || {};
+    
+    // Применяем сохраненные данные к достижениям
+    achievements.forEach(achievement => {
+        if (savedAchievements[achievement.id]) {
+            achievement.unlocked = true;
+            achievement.unlockedDate = savedAchievements[achievement.id].date;
+        }
+    });
+}
+
+// Функция для сохранения разблокированных достижений
+function saveAchievements(unlockedAchievements) {
+    localStorage.setItem('unlockedAchievements', JSON.stringify(unlockedAchievements));
+}
+
+// Функция для расчета метрик достижений
+function calculateAchievementStats(transactions, trades, profit) {
+    // Базовые метрики
+    const stats = {
+        trades: trades,
+        totalProfit: profit,
+        profitDeals: 0,
+        lossDeals: 0,
+        consecutiveProfitDeals: 0,
+        maxConsecutiveProfitDeals: 0,
+        highProfitDeals: 0,
+        maxProfitPercentage: 0,
+        maxDealAmount: 0,
+        bigDeals: 0,
+        bigDeals500: 0,
+        bigDeals1000: 0,
+        maxLoss: 0,
+        maxProfitAmount: 0,
+        bestTraderMonth: false,
+        worstTraderMonth: false,
+        hadBigLossThenRecovered: false,
+        maxTradesPerDay: 0
+    };
+    
+    // Если нет транзакций, возвращаем базовые метрики
+    if (!transactions || transactions.length === 0) {
+        updateAchievements(stats);
+        return;
+    }
+    
+    // Анализируем транзакции
+    let currentConsecutiveProfit = 0;
+    let dailyTradeCount = {};
+    
+    // Сортируем транзакции по дате
+    transactions.sort((a, b) => new Date(a.date) - new Date(b.date));
+    
+    transactions.forEach(t => {
+        // Подсчет прибыльных и убыточных сделок
+        if (t.type === 'income') {
+            stats.profitDeals++;
+            currentConsecutiveProfit++;
+            
+            // Проверка на высокую прибыль (если есть данные о проценте)
+            if (t.buyPrice && t.sellPrice) {
+                const profitPercentage = ((t.sellPrice - t.buyPrice) / t.buyPrice) * 100;
+                stats.maxProfitPercentage = Math.max(stats.maxProfitPercentage, profitPercentage);
+                
+                if (profitPercentage >= 10) {
+                    stats.highProfitDeals++;
+                }
+                
+                // Максимальная прибыль с одной сделки
+                const profitAmount = t.sellPrice - t.buyPrice;
+                stats.maxProfitAmount = Math.max(stats.maxProfitAmount, profitAmount);
+            }
+        } else {
+            stats.lossDeals++;
+            currentConsecutiveProfit = 0;
+            
+            // Максимальный убыток
+            if (t.amount) {
+                stats.maxLoss = Math.max(stats.maxLoss, t.amount);
+            }
+        }
+        
+        // Обновляем максимальное количество последовательных прибыльных сделок
+        stats.maxConsecutiveProfitDeals = Math.max(stats.maxConsecutiveProfitDeals, currentConsecutiveProfit);
+        
+        // Максимальная сумма сделки
+        if (t.buyPrice) {
+            stats.maxDealAmount = Math.max(stats.maxDealAmount, t.buyPrice);
+            
+            // Подсчет крупных сделок
+            if (t.buyPrice >= 100) {
+                stats.bigDeals++;
+            }
+            if (t.buyPrice >= 500) {
+                stats.bigDeals500++;
+            }
+            if (t.buyPrice >= 1000) {
+                stats.bigDeals1000++;
+            }
+        }
+        
+        // Подсчет сделок по дням
+        const day = t.date;
+        if (!dailyTradeCount[day]) {
+            dailyTradeCount[day] = 0;
+        }
+        dailyTradeCount[day]++;
+    });
+    
+    // Находим максимальное количество сделок за день
+    stats.maxTradesPerDay = Object.values(dailyTradeCount).length > 0 ? 
+        Math.max(...Object.values(dailyTradeCount)) : 0;
+    
+    // Устанавливаем текущее значение последовательных прибыльных сделок
+    stats.consecutiveProfitDeals = Math.max(currentConsecutiveProfit, stats.maxConsecutiveProfitDeals);
+    
+    // Проверка на "Падение и взлёт" - был большой убыток, но потом восстановился
+    // Это упрощенная логика, в реальности нужно анализировать историю баланса
+    const hadBigLoss = transactions.some(t => t.type === 'expense' && t.amount >= 1000);
+    stats.hadBigLossThenRecovered = hadBigLoss && profit > 0;
+    
+    // Проверка на лучшего/худшего трейдера месяца
+    // Это упрощенная логика, в реальности нужно сравнивать с другими пользователями
+    const currentMonth = new Date().getMonth();
+    const currentYear = new Date().getFullYear();
+    
+    const thisMonthDeals = transactions.filter(t => {
+        const dealDate = new Date(t.date);
+        return dealDate.getMonth() === currentMonth && dealDate.getFullYear() === currentYear;
+    });
+    
+    if (thisMonthDeals.length > 0) {
+        // Предполагаем, что пользователь лучший/худший, если у него есть сделки в этом месяце
+        // В реальности нужно сравнивать с другими пользователями
+        stats.bestTraderMonth = true;
+        stats.worstTraderMonth = true;
+    }
+    
+    // Выводим статистику в консоль для отладки
+    console.log('Рассчитанные метрики:', stats);
+    
+    // Обновляем достижения с рассчитанными метриками
+    updateAchievements(stats);
+}
+
+// Функция для обновления достижений
+function updateAchievements(stats) {
+    let unlockedCount = 0;
+    const savedAchievements = JSON.parse(localStorage.getItem('unlockedAchievements')) || {};
+    let achievementsChanged = false;
+    
+    achievements.forEach(achievement => {
+        const progress = achievement.progress(stats);
+        const isUnlocked = achievement.condition(stats);
+        
+        // Сохраняем прогресс
+        achievement.currentProgress = progress;
+        
+        // Проверяем, было ли достижение разблокировано ранее
+        if (savedAchievements[achievement.id]) {
+            achievement.unlocked = true;
+            achievement.unlockedDate = savedAchievements[achievement.id].date;
+        } else if (isUnlocked) {
+            // Если достижение разблокировано сейчас, но не было разблокировано ранее
+            achievement.unlocked = true;
+            achievement.unlockedDate = new Date().toLocaleDateString();
+            
+            // Сохраняем в localStorage
+            savedAchievements[achievement.id] = {
+                date: achievement.unlockedDate
+            };
+            
+            achievementsChanged = true;
+            
+            // Показываем уведомление о новом достижении
+            showNotification(`Достижение разблокировано: ${achievement.title}`, 'success');
+        }
+        
+        if (achievement.unlocked) {
+            unlockedCount++;
+        }
+    });
+    
+    // Сохраняем изменения в localStorage, если были изменения
+    if (achievementsChanged) {
+        saveAchievements(savedAchievements);
+    }
+    
+    // Обновляем счетчик достижений
+    document.getElementById('totalAchievements').textContent = `${unlockedCount}/${achievements.length}`;
+}
+
+// Функция для отображения достижений
+function renderAchievements() {
+    const easyContainer = document.getElementById('easy-achievements');
+    const mediumContainer = document.getElementById('medium-achievements');
+    const hardContainer = document.getElementById('hard-achievements');
+    const specialContainer = document.getElementById('special-achievements');
+    
+    // Очищаем контейнеры
+    easyContainer.innerHTML = '';
+    mediumContainer.innerHTML = '';
+    hardContainer.innerHTML = '';
+    specialContainer.innerHTML = '';
+    
+    // Группируем достижения по категориям
+    const easyAchievements = achievements.filter(a => a.category === 'easy');
+    const mediumAchievements = achievements.filter(a => a.category === 'medium');
+    const hardAchievements = achievements.filter(a => a.category === 'hard');
+    const specialAchievements = achievements.filter(a => a.category === 'special');
+    
+    // Отображаем достижения по категориям
+    easyAchievements.forEach(achievement => {
+        easyContainer.appendChild(createAchievementCard(achievement));
+    });
+    
+    mediumAchievements.forEach(achievement => {
+        mediumContainer.appendChild(createAchievementCard(achievement));
+    });
+    
+    hardAchievements.forEach(achievement => {
+        hardContainer.appendChild(createAchievementCard(achievement));
+    });
+    
+    specialAchievements.forEach(achievement => {
+        specialContainer.appendChild(createAchievementCard(achievement));
+    });
+    
+    // Анимируем появление карточек
+    animateAchievementCards();
+}
+
+// Функция для создания карточки достижения
+function createAchievementCard(achievement) {
+    const card = document.createElement('div');
+    card.className = `achievement-card ${achievement.category}`;
+    card.id = achievement.id;
+    card.dataset.category = achievement.category;
+    
+    if (achievement.unlocked) {
+        card.classList.add('unlocked');
+    }
+    
+    // Рассчитываем процент прогресса
+    const progressPercent = (achievement.currentProgress / achievement.target) * 100;
+    
+    // Определяем тип транзакции для отображения
+    const transactionTypeText = achievement.transactionType === 'extended' ? 
+        'Работает с расширенными сделками' : 'Работает с обычными сделками';
+    
+    card.innerHTML = `
+        <div class="achievement-badge ${achievement.category}">${getCategoryName(achievement.category)}</div>
+        <div class="achievement-icon">
+            <ion-icon name="${achievement.icon}"></ion-icon>
+        </div>
+        <div class="achievement-title">${achievement.title}</div>
+        <div class="achievement-description">${achievement.description}</div>
+        <div class="achievement-type">${transactionTypeText}</div>
+        <div class="achievement-progress">
+            <div class="achievement-progress-bar" style="--progress-width: ${progressPercent}%; width: ${progressPercent}%;"></div>
+        </div>
+        <div class="achievement-progress-text">${achievement.format(achievement.currentProgress)}</div>
+        ${achievement.unlocked ? `<div class="achievement-date">Получено: ${achievement.unlockedDate}</div>` : ''}
+    `;
+    
+    return card;
+}
+
+// Функция для получения названия категории
+function getCategoryName(category) {
+    switch (category) {
+        case 'easy': return 'Лёгкое';
+        case 'medium': return 'Среднее';
+        case 'hard': return 'Сложное';
+        case 'special': return 'Особое';
+        default: return '';
+    }
+}
+
+// Функция для анимации карточек достижений
+function animateAchievementCards() {
+    const cards = document.querySelectorAll('.achievement-card');
+    cards.forEach((card, index) => {
+        gsap.fromTo(card, 
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.5, delay: index * 0.05, ease: "back.out(1.7)" }
+        );
+        
+        // Если достижение разблокировано, добавляем эффект искр
+        if (card.classList.contains('unlocked')) {
+            setTimeout(() => {
+                createSparklesAround(card, 10);
+            }, index * 50 + 500);
+        }
+    });
+}
+
+// Функция для настройки фильтров
+function setupFilters() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Удаляем активный класс со всех кнопок
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Добавляем активный класс на нажатую кнопку
+            this.classList.add('active');
+            
+            // Фильтруем достижения
+            const filter = this.dataset.filter;
+            filterAchievements(filter);
+            
+            // Создаем эффект искр
+            createSparklesAround(this, 10);
+        });
+    });
+}
+
+// Fix the filterAchievements function to correctly show/hide headers when filtering
+function filterAchievements(filter) {
+    const headers = document.querySelectorAll('.achievements-header');
+    const containers = document.querySelectorAll('.achievements-container');
+
+    if (filter === 'all') {
+        // Показываем все категории
+        headers.forEach(header => header.style.display = 'block');
+        containers.forEach(container => container.style.display = 'grid');
+    } else {
+        // Скрываем все категории
+        headers.forEach(header => header.style.display = 'none');
+        containers.forEach(container => container.style.display = 'none');
+        
+        // Показываем только выбранную категорию
+        // Find the header that corresponds to the selected category
+        const headerIndex = {
+            'easy': 1,
+            'medium': 2,
+            'hard': 3,
+            'special': 4
+        }[filter];
+        
+        const selectedHeader = document.querySelector(`.achievements-header:nth-of-type(${headerIndex})`);
+        const selectedContainer = document.getElementById(`${filter}-achievements`);
+        
+        if (selectedHeader) selectedHeader.style.display = 'block';
+        if (selectedContainer) selectedContainer.style.display = 'grid';
+    }
+}
+
+// Remove the getHeaderIndex function since we're now using a direct mapping
+// This function was causing the issue by always returning 1 for 'special'
+
+// Update the formatCurrency function to properly round numbers and avoid floating point issues
+function formatCurrency(amount) {
+    // Round to 2 decimal places to avoid floating point issues
+    amount = Math.round(amount * 100) / 100;
+    
+    return `$${amount.toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2 // Always show 2 decimal places
+    })}`;
+}
+
+// Функция для создания эффекта искр вокруг элемента
+function createSparklesAround(element, count = 10) {
+    if (!element) return;
+    
+    const rect = element.getBoundingClientRect();
+    
+    for (let i = 0; i < count; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        
+        // Random position around the element
+        const angle = Math.random() * Math.PI * 2;
+        const distance = Math.random() * 50 + 20;
+        const x = rect.left + rect.width / 2 + Math.cos(angle) * distance;
+        const y = rect.top + rect.height / 2 + Math.sin(angle) * distance;
+        
+        sparkle.style.left = `${x}px`;
+        sparkle.style.top = `${y}px`;
+        
+        document.body.appendChild(sparkle);
+        
+        // Animate the sparkle
+        gsap.to(sparkle, {
+            scale: Math.random() * 2 + 1,
+            opacity: 1,
+            duration: 0.3,
+            ease: "power1.out",
+            onComplete: () => {
+                gsap.to(sparkle, {
+                    scale: 0,
+                    opacity: 0,
+                    duration: 0.5,
+                    delay: Math.random() * 0.5,
+                    ease: "power1.in",
+                    onComplete: () => {
+                        sparkle.remove();
+                    }
+                });
+            }
+        });
+    }
+}
+
+// Функция для отображения уведомлений
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.innerHTML = message;
+    document.body.appendChild(notification);
+    
+    // Animate in
+    setTimeout(() => {
+        notification.style.opacity = '1';
+        notification.style.transform = 'translateX(-50%) translateY(-10px)';
+    }, 10);
+    
+    // Animate out and remove
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        notification.style.transform = 'translateX(-50%) translateY(10px)';
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }, 3000);
+}
+
+// Функция для отслеживания движения мыши и создания эффекта свечения курсора
+function initGlowCursor() {
+    const cursor = document.querySelector('.glow-cursor');
+    
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = `${e.clientX - 15}px`;
+        cursor.style.top = `${e.clientY - 15}px`;
+        cursor.style.opacity = '1';
+        
+        // Проверяем, находится ли курсор над интерактивным элементом
+        const target = e.target;
+        const isInteractive = 
+            target.tagName === 'BUTTON' || 
+            target.tagName === 'A' || 
+            target.classList.contains('btn') ||
+            target.classList.contains('card') ||
+            target.classList.contains('achievement-card') ||
+            target.classList.contains('filter-btn') ||
+            target.closest('.btn') ||
+            target.closest('.card') ||
+            target.closest('.achievement-card') ||
+            target.closest('.filter-btn');
+        
+        if (isInteractive) {
+            cursor.style.transform = 'scale(1.5)';
+            cursor.style.mixBlendMode = 'screen';
+        } else {
+            cursor.style.transform = 'scale(1)';
+            cursor.style.mixBlendMode = 'screen';
+        }
+    });
+    
+    document.addEventListener('mouseout', () => {
+        cursor.style.opacity = '0';
+    });
+}
+
+// Функция для создания частиц фона
+function createParticles() {
+    const particlesContainer = document.createElement('div');
+    particlesContainer.className = 'particles-container';
+    document.body.appendChild(particlesContainer);
+
+    for (let i = 0; i < 30; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = `${Math.random() * 100}vw`;
+        particle.style.top = `${Math.random() * 100}vh`;
+        particle.style.opacity = Math.random() * 0.5 + 0.1;
+        
+        // Add random animation
+        const duration = Math.random() * 20 + 10;
+        const delay = Math.random() * 5;
+        
+        gsap.to(particle, {
+            x: Math.random() * 100 - 50,
+            y: Math.random() * 100 - 50,
+            duration: duration,
+            delay: delay,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        });
+        
+        particlesContainer.appendChild(particle);
+    }
+}
+
+// Функция для создания звезд на фоне
+function createStars() {
+    const starsContainer = document.createElement('div');
+    starsContainer.className = 'stars-container';
+    document.body.appendChild(starsContainer);
+
+    for (let i = 0; i < 30; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = `${Math.random() * 100}vw`;
+        star.style.animationDuration = `${Math.random() * 10 + 5}s`;
+        star.style.animationDelay = `${Math.random() * 5}s`;
+        starsContainer.appendChild(star);
+    }
+}
+
+// Функция для переключения темы
+function toggleTheme() {
+    const root = document.documentElement;
+    const currentTheme = root.classList.contains('light-theme') ? 'dark' : 'light';
+    root.classList.toggle('light-theme');
+
+    const tl = gsap.timeline();
+
+    if (currentTheme === 'light') {
+        // Анимация от солнца к луне
+        tl.to("#sun, #sun-ray-1, #sun-ray-2, #sun-ray-3, #sun-ray-4, #sun-ray-5, #sun-ray-6, #sun-ray-7, #sun-ray-8", {duration: 0.3, opacity: 0})
+          .to("#moon", {duration: 0.5, morphSVG: "M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z", ease: "power2.inOut"}, "-=0.3");
+    } else {
+        // Анимация от луны к солнцу
+        tl.to("#moon", {duration: 0.5, morphSVG: "M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10z", ease: "power2.inOut"})
+          .to("#sun", {duration: 0.1, opacity: 1})
+          .to("#sun-ray-1, #sun-ray-2, #sun-ray-3, #sun-ray-4, #sun-ray-5, #sun-ray-6, #sun-ray-7, #sun-ray-8", {duration: 0.3, opacity: 1, stagger: 0.05}, "-=0.1");
+    }
+
+    // Создаем эффект вспышки при смене темы
+    const flash = document.createElement('div');
+    flash.style.position = 'fixed';
+    flash.style.top = '0';
+    flash.style.left = '0';
+    flash.style.width = '100%';
+    flash.style.height = '100%';
+    flash.style.backgroundColor = currentTheme === 'light' ? 'rgba(15, 23, 42, 0.2)' : 'rgba(255, 255, 255, 0.2)';
+    flash.style.zIndex = '9998';
+    flash.style.pointerEvents = 'none';
+    document.body.appendChild(flash);
+    
+    gsap.to(flash, {
+        opacity: 0,
+        duration: 0.5,
+        onComplete: () => {
+            flash.remove();
+        }
+    });
+    
+    // Создаем эффект искр при смене темы
+    createSparklesAround(document.querySelector('.theme-toggle'), 20);
+}
+
+// Инициализация страницы при загрузке
+document.addEventListener('DOMContentLoaded', initPage);
+</script>
+</body>
+</html>
+

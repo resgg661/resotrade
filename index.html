@@ -1,0 +1,3865 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neon Finance Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/MorphSVGPlugin.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+    :root {
+        /* Main Colors */
+        --bg-primary: #0a0e17;
+        --bg-secondary: #111827;
+        --bg-tertiary: #1f2937;
+        --bg-card: linear-gradient(145deg, #131b2e, #1a2540);
+        --glass: rgba(255, 255, 255, 0.05);
+        --glass-hover: rgba(255, 255, 255, 0.08);
+        
+        /* Accent Colors */
+        --accent-primary: #4f46e5;
+        --accent-primary-hover: #6366f1;
+        --accent-primary-glow: rgba(79, 70, 229, 0.5);
+        --accent-secondary: #8b5cf6;
+        --accent-tertiary: #ec4899;
+        --accent-quaternary: #06b6d4;
+        
+        /* Gradient Colors */
+        --gradient-primary: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+        --gradient-secondary: linear-gradient(135deg, var(--accent-tertiary) 0%, var(--accent-quaternary) 100%);
+        --gradient-text: linear-gradient(135deg, #fff 0%, #c7d2fe 100%);
+        
+        /* Text Colors */
+        --text-primary: rgba(255, 255, 255, 0.95);
+        --text-secondary: rgba(255, 255, 255, 0.7);
+        --text-tertiary: rgba(255, 255, 255, 0.5);
+        
+        /* Status Colors */
+        --positive: #10b981;
+        --positive-light: rgba(16, 185, 129, 0.2);
+        --negative: #ef4444;
+        --negative-light: rgba(239, 68, 68, 0.2);
+        --warning: #f59e0b;
+        --info: #3b82f6;
+        
+        /* Border Colors */
+        --border: rgba(255, 255, 255, 0.1);
+        --border-hover: rgba(255, 255, 255, 0.2);
+        
+        /* Shadows */
+        --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+        --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+        --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+        --shadow-glow: 0 0 20px var(--accent-primary-glow);
+        --shadow-card: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
+        
+        /* Transitions */
+        --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-normal: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        
+        /* Sizes */
+        --radius-sm: 8px;
+        --radius-md: 12px;
+        --radius-lg: 20px;
+        --radius-xl: 28px;
+        --radius-full: 9999px;
+        
+        /* Spacing */
+        --spacing-xs: 0.25rem;
+        --spacing-sm: 0.5rem;
+        --spacing-md: 1rem;
+        --spacing-lg: 1.5rem;
+        --spacing-xl: 2rem;
+        --spacing-2xl: 3rem;
+        
+        /* Font */
+        --font-sans: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        --font-display: 'Montserrat', var(--font-sans);
+    }
+
+    :root.light-theme {
+        --bg-primary: #f8fafc;
+        --bg-secondary: #f1f5f9;
+        --bg-tertiary: #e2e8f0;
+        --bg-card: linear-gradient(145deg, #f8fafc, #f1f5f9);
+        --glass: rgba(0, 0, 0, 0.03);
+        --glass-hover: rgba(0, 0, 0, 0.06);
+        
+        --accent-primary: #4f46e5;
+        --accent-primary-hover: #4338ca;
+        --accent-primary-glow: rgba(79, 70, 229, 0.3);
+        --accent-secondary: #8b5cf6;
+        --accent-tertiary: #ec4899;
+        --accent-quaternary: #06b6d4;
+        
+        --gradient-text: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        
+        --text-primary: rgba(15, 23, 42, 0.95);
+        --text-secondary: rgba(15, 23, 42, 0.7);
+        --text-tertiary: rgba(15, 23, 42, 0.5);
+        
+        /* Status Colors */
+        --positive: #059669;
+        --positive-light: rgba(5, 150, 105, 0.2);
+        --negative: #dc2626;
+        --negative-light: rgba(220, 38, 38, 0.2);
+        --warning: #f59e0b;
+        --info: #3b82f6;
+        
+        /* Border Colors */
+        --border: rgba(0, 0, 0, 0.1);
+        --border-hover: rgba(0, 0, 0, 0.2);
+        
+        /* Shadows */
+        --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        --shadow-card: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: var(--font-sans);
+    }
+
+    body {
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        min-height: 100vh;
+        padding: var(--spacing-xl);
+        overflow-x: hidden;
+        position: relative;
+        transition: background-color 0.5s ease;
+        line-height: 1.5;
+    }
+
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            radial-gradient(circle at 10% 20%, rgba(79, 70, 229, 0.08) 0%, transparent 30%),
+            radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 30%),
+            radial-gradient(circle at 50% 50%, rgba(236, 72, 153, 0.05) 0%, transparent 50%);
+        z-index: -1;
+        animation: gradientMove 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes gradientMove {
+        0% { background-position: 0% 0%; }
+        100% { background-position: 100% 100%; }
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-display);
+        font-weight: 700;
+        letter-spacing: -0.025em;
+        color: var(--text-primary);
+    }
+
+    h1 {
+        font-size: 2.75rem;
+        margin-bottom: var(--spacing-md);
+        letter-spacing: -0.05em;
+    }
+
+    h2 {
+        font-size: 1.75rem;
+        margin-bottom: var(--spacing-sm);
+    }
+
+    h3 {
+        font-size: 1.25rem;
+        margin-bottom: var(--spacing-xs);
+        color: var(--text-secondary);
+        font-weight: 600;
+    }
+
+    p {
+        margin-bottom: var(--spacing-md);
+        color: var(--text-secondary);
+    }
+
+    small {
+        font-size: 0.875rem;
+        color: var(--text-tertiary);
+    }
+
+    .dashboard {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        gap: var(--spacing-xl);
+        grid-template-columns: repeat(12, 1fr);
+    }
+
+    .card {
+        background: var(--bg-card);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+        padding: var(--spacing-xl);
+        transition: var(--transition-normal);
+        border: 1px solid var(--border);
+        position: relative;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+        transform-style: preserve-3d;
+        perspective: 1000px;
+    }
+
+    .card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            135deg, 
+            transparent 0%, 
+            transparent 20%, 
+            rgba(79, 70, 229, 0.05) 40%, 
+            rgba(139, 92, 246, 0.05) 60%, 
+            rgba(236, 72, 153, 0.05) 80%, 
+            transparent 100%
+        );
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+
+    .card:hover::before {
+        opacity: 1;
+        animation: cardGradient 3s linear infinite;
+    }
+
+    @keyframes cardGradient {
+        0% { background-position: 0% 0%; }
+        100% { background-position: 100% 100%; }
+    }
+
+    .card:hover {
+        transform: translateY(-8px) rotateX(2deg) rotateY(2deg);
+        box-shadow: 
+            0 20px 25px -5px rgba(0, 0, 0, 0.3),
+            0 10px 10px -5px rgba(0, 0, 0, 0.2),
+            0 0 20px var(--accent-primary-glow);
+        border-color: var(--border-hover);
+    }
+
+    .card-glow {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--gradient-primary);
+        opacity: 0.9;
+        box-shadow: 0 0 10px var(--accent-primary-glow);
+    }
+
+    .balance-card {
+        grid-column: span 12;
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+
+    .balance-card h1 {
+        font-size: 3.5rem;
+        margin-bottom: var(--spacing-xs);
+        background: linear-gradient(135deg, #fff 0%, var(--accent-primary) 50%, var(--accent-secondary) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        background-size: 200% 200%;
+        animation: gradientText 5s ease infinite;
+        text-shadow: 0 0 30px var(--accent-primary-glow);
+    }
+
+    @keyframes gradientText {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    .profit-loss {
+        grid-column: span 12;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-xl);
+    }
+
+    .profit-loss-card {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+
+    .profit-loss-card h2 {
+        font-size: 2.25rem;
+        position: relative;
+        display: inline-block;
+    }
+
+    .income h2 {
+        color: var(--positive);
+        text-shadow: 0 0 20px var(--positive-light);
+    }
+
+    .income h2::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 3px;
+        background: var(--positive);
+        transition: width 0.5s ease;
+    }
+
+    .income:hover h2::after {
+        width: 100%;
+    }
+
+    .expense h2 {
+        color: var(--negative);
+        text-shadow: 0 0 20px var(--negative-light);
+    }
+
+    .expense h2::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 3px;
+        background: var(--negative);
+        transition: width 0.5s ease;
+    }
+
+    .expense:hover h2::after {
+        width: 100%;
+    }
+
+    .chart-container {
+        grid-column: span 12;
+        height: 400px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .chart-glow {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 50%;
+        background: linear-gradient(0deg, rgba(79, 70, 229, 0.1) 0%, transparent 100%);
+        pointer-events: none;
+        z-index: 1;
+        animation: pulseGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+        0% { opacity: 0.3; }
+        100% { opacity: 0.7; }
+    }
+
+    .calendar-container {
+        display: none;
+        grid-column: span 12;
+        height: 400px;
+        position: relative;
+        overflow: auto;
+    }
+
+    .calendar-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(100px, 1fr));
+        gap: var(--spacing-sm);
+        min-width: 700px;
+    }
+
+    .calendar-day {
+        background: var(--glass);
+        border-radius: var(--radius-md);
+        padding: var(--spacing-md);
+        text-align: center;
+        cursor: pointer;
+        transition: var(--transition-normal);
+        border: 1px solid var(--border);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .calendar-day::before {
+        content: '';
+        position: absolute;
+        top: -100%;
+        left: -100%;
+        width: 300%;
+        height: 300%;
+        background: radial-gradient(circle, rgba(79, 70, 229, 0.2) 0%, transparent 70%);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+
+    .calendar-day:hover {
+        background: var(--glass-hover);
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-md);
+        border-color: var(--border-hover);
+    }
+
+    @keyframes rotateGradient {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .calendar-day.today {
+        border: 2px solid var(--accent-primary);
+        box-shadow: 0 0 15px var(--accent-primary-glow);
+    }
+
+    .calendar-day .day-number {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: var(--spacing-xs);
+        position: relative;
+        z-index: 1;
+    }
+
+    .calendar-day .day-balance {
+        font-size: 0.875rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .positive-balance {
+        color: var(--positive);
+        text-shadow: 0 0 5px var(--positive-light);
+    }
+
+    .negative-balance {
+        color: var(--negative);
+        text-shadow: 0 0 5px var(--negative-light);
+    }
+
+    .search-container {
+        grid-column: span 12;
+        display: flex;
+        gap: var(--spacing-md);
+    }
+
+    .search-input {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border);
+        color: var(--text-primary);
+        padding: var(--spacing-md) var(--spacing-lg);
+        border-radius: var(--radius-full);
+        font-size: 1rem;
+        width: 100%;
+        transition: var(--transition-normal);
+        outline: none;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-input:focus {
+        border-color: var(--accent-primary);
+        box-shadow: 
+            inset 0 2px 4px rgba(0, 0, 0, 0.1),
+            0 0 0 3px var(--accent-primary-glow);
+        animation: pulseBorder 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulseBorder {
+        0%, 100% { border-color: var(--accent-primary); }
+        50% { border-color: var(--accent-secondary); }
+    }
+
+    .transactions-list {
+        grid-column: span 12;
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-md);
+        max-height: 500px;
+        overflow-y: auto;
+        padding-right: var(--spacing-sm);
+    }
+
+    .transaction-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--spacing-lg);
+        background: var(--bg-card);
+        border-radius: var(--radius-md);
+        transition: var(--transition-normal);
+        border: 1px solid var(--border);
+        animation: itemAppear 0.6s ease;
+        position: relative;
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .transaction-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: var(--gradient-primary);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .transaction-item:hover::before {
+        opacity: 1;
+    }
+
+    .transaction-item:hover {
+        transform: translateX(8px) scale(1.02);
+        background: var(--glass-hover);
+        box-shadow: var(--shadow-md);
+        border-color: var(--border-hover);
+    }
+
+    .transaction-info {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-xs);
+    }
+
+    .transaction-actions {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+    }
+
+    .transaction-amount {
+        font-weight: 600;
+        font-size: 1.1rem;
+        position: relative;
+    }
+
+    .amount-positive {
+        color: var(--positive);
+    }
+
+    .amount-positive::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--positive);
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.3s ease;
+    }
+
+    .transaction-item:hover .amount-positive::after {
+        transform: scaleX(1);
+        transform-origin: left;
+    }
+
+    .amount-negative {
+        color: var(--negative);
+    }
+
+    .amount-negative::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--negative);
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.3s ease;
+    }
+
+    .transaction-item:hover .amount-negative::after {
+        transform: scaleX(1);
+        transform-origin: left;
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--spacing-sm);
+        padding: var(--spacing-sm) var(--spacing-md);
+        border-radius: var(--radius-md);
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition-normal);
+        border: none;
+        outline: none;
+        font-size: 0.875rem;
+        position: relative;
+        overflow: hidden;
+        letter-spacing: 0.5px;
+    }
+
+    .btn::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.6s ease, height 0.6s ease;
+    }
+
+    .btn:hover::before {
+        width: 300%;
+        height: 300%;
+    }
+
+    .btn-primary {
+        background: var(--gradient-primary);
+        color: white;
+        box-shadow: 0 4px 6px rgba(79, 70, 229, 0.25);
+        background-size: 200% 200%;
+    }
+
+    .btn-primary:hover {
+        background-position: right center;
+        transform: translateY(-4px);
+        box-shadow: 
+            0 10px 15px -3px rgba(79, 70, 229, 0.3),
+            0 4px 6px -2px rgba(79, 70, 229, 0.2),
+            0 0 10px var(--accent-primary-glow);
+        animation: gradientShift 3s ease infinite;
+    }
+
+    @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    .btn-secondary {
+        background: var(--glass);
+        color: var(--text-primary);
+        border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+        background: var(--glass-hover);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+        border-color: var(--accent-primary);
+    }
+
+    .btn-icon {
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        border-radius: var(--radius-full);
+        position: relative;
+    }
+
+    .btn-icon::after {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        border-radius: inherit;
+        background: var(--gradient-primary);
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .btn-icon:hover::after {
+        opacity: 1;
+    }
+
+    .btn-large {
+        padding: var(--spacing-md) var(--spacing-lg);
+        font-size: 1rem;
+    }
+
+    .btn-group {
+        display: flex;
+        gap: var(--spacing-sm);
+        flex-wrap: wrap;
+    }
+
+    .btn-group .btn {
+        flex: 1;
+    }
+
+    .btn-active {
+        background: var(--gradient-primary);
+        color: white;
+        border: none;
+        box-shadow: 0 4px 6px rgba(79, 70, 229, 0.25);
+    }
+
+    .add-btn {
+        position: fixed;
+        bottom: var(--spacing-xl);
+        right: var(--spacing-xl);
+        width: 64px;
+        height: 64px;
+        border-radius: var(--radius-full);
+        background: var(--gradient-primary);
+        color: white;
+        font-size: 1.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: var(--transition-normal);
+        border: none;
+        box-shadow: 
+            var(--shadow-lg), 
+            0 0 20px var(--accent-primary-glow);
+        z-index: 100;
+        overflow: hidden;
+    }
+
+    .add-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--gradient-secondary);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+
+    .add-btn:hover::before {
+        opacity: 1;
+    }
+
+    .add-btn:hover {
+        transform: scale(1.1) rotate(90deg);
+        box-shadow: 
+            var(--shadow-lg), 
+            0 0 30px var(--accent-primary-glow);
+    }
+
+    .add-btn span {
+        position: relative;
+        z-index: 1;
+    }
+
+    .nav-bar {
+        position: fixed;
+        top: var(--spacing-xl);
+        right: var(--spacing-xl);
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-md);
+        z-index: 100;
+    }
+
+    .nav-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: var(--radius-full);
+        background: var(--bg-card);
+        color: var(--accent-primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: var(--transition-normal);
+        border: 1px solid var(--border);
+        font-size: 1.25rem;
+        position: relative;
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .nav-icon::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--gradient-primary);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .nav-icon:hover {
+        transform: translateY(-4px);
+        color: white;
+        box-shadow: var(--shadow-glow);
+    }
+
+    .nav-icon:hover::before {
+        opacity: 1;
+    }
+
+    .nav-icon ion-icon {
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Tooltip styles for nav icons */
+    .nav-icon-wrapper {
+        position: relative;
+    }
+
+    .nav-tooltip {
+        position: absolute;
+        top: 50%;
+        right: 100%;
+        transform: translateY(-50%);
+        background: var(--bg-card);
+        color: var(--text-primary);
+        padding: var(--spacing-sm) var(--spacing-md);
+        border-radius: var(--radius-md);
+        font-size: 0.875rem;
+        white-space: nowrap;
+        margin-right: var(--spacing-md);
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition-normal);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-md);
+        pointer-events: none;
+        z-index: 101;
+    }
+
+    .nav-icon-wrapper:hover .nav-tooltip {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .theme-toggle {
+        position: fixed;
+        top: var(--spacing-xl);
+        left: var(--spacing-xl);
+        width: 48px;
+        height: 48px;
+        border-radius: var(--radius-full);
+        background: var(--bg-card);
+        color: var(--accent-primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: var(--transition-normal);
+        border: 1px solid var(--border);
+        z-index: 100;
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .theme-toggle::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--gradient-primary);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+        transform: translateY(-4px);
+        color: white;
+        box-shadow: var(--shadow-glow);
+    }
+
+    .theme-toggle:hover::before {
+        opacity: 1;
+    }
+
+    .theme-toggle svg {
+        width: 20px;
+        height: 20px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        position: relative;
+        z-index: 1;
+    }
+
+    .switch-view {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--bg-card);
+        color: var(--text-primary);
+        width: 44px;
+        height: 88px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition-normal);
+        z-index: 10;
+        cursor: pointer;
+        border: 1px solid var(--border);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .switch-view::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--gradient-primary);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .switch-view:hover {
+        color: white;
+        width: 54px;
+        box-shadow: var(--shadow-md);
+    }
+
+    .switch-view:hover::before {
+        opacity: 1;
+    }
+
+    .switch-view span {
+        position: relative;
+        z-index: 1;
+        font-size: 1.5rem;
+    }
+
+    .switch-view.left {
+        left: -1px;
+        border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+        justify-content: flex-end;
+        padding-right: 10px;
+    }
+
+    .switch-view.right {
+        right: -1px;
+        border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+        justify-content: flex-start;
+        padding-left: 10px;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(8px);
+    }
+
+    .modal-content {
+        background: var(--bg-card);
+        margin: 10% auto;
+        padding: var(--spacing-xl);
+        border: 1px solid var(--border);
+        width: 90%;
+        max-width: 500px;
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-lg);
+        animation: modalAppear 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+        overflow: hidden;
+        transform: translateZ(0);
+    }
+
+    .modal-content::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--gradient-primary);
+        z-index: 1;
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--spacing-lg);
+        position: relative;
+    }
+
+    .modal-body {
+        margin-bottom: var(--spacing-lg);
+        position: relative;
+    }
+
+    .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: var(--spacing-md);
+        position: relative;
+    }
+
+    @keyframes modalAppear {
+        0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+        100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .close {
+        color: var(--text-tertiary);
+        font-size: 1.5rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: var(--transition-fast);
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: var(--radius-full);
+    }
+
+    .close:hover {
+        color: var(--accent-primary);
+        background: var(--glass);
+        transform: rotate(90deg);
+    }
+
+    .form-group {
+        margin-bottom: var(--spacing-md);
+        position: relative;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: var(--spacing-xs);
+        font-weight: 500;
+        color: var(--text-secondary);
+        transition: var(--transition-normal);
+    }
+
+    .form-group:focus-within label {
+        color: var(--accent-primary);
+    }
+
+    .form-control {
+        background: var(--bg-tertiary);
+        border: 1px solid var(--border);
+        color: var(--text-primary);
+        padding: var(--spacing-md);
+        border-radius: var(--radius-md);
+        font-size: 1rem;
+        width: 100%;
+        transition: var(--transition-normal);
+        outline: none;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-control:focus {
+        border-color: var(--accent-primary);
+        box-shadow: 
+            inset 0 2px 4px rgba(0, 0, 0, 0.1),
+            0 0 0 3px var(--accent-primary-glow);
+    }
+
+    .form-control:hover:not(:focus) {
+        border-color: var(--accent-secondary);
+    }
+
+    textarea.form-control {
+        min-height: 100px;
+        resize: vertical;
+    }
+
+    select.form-control {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23718096' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right var(--spacing-md) center;
+        background-size: 16px;
+        padding-right: var(--spacing-xl);
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-md);
+    }
+
+    .stats-item {
+        background: var(--bg-tertiary);
+        padding: var(--spacing-lg);
+        border-radius: var(--radius-md);
+        text-align: center;
+        border: 1px solid var(--border);
+        transition: var(--transition-normal);
+        position: relative;
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .stats-item::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(79, 70, 229, 0.1) 0%, transparent 70%);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+
+    .stats-item:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+        border-color: var(--border-hover);
+    }
+
+    .stats-item:hover::before {
+        opacity: 1;
+        animation: rotateGradient 10s linear infinite;
+    }
+
+    .stats-item h3 {
+        margin-bottom: var(--spacing-sm);
+        color: var(--text-secondary);
+    }
+
+    .stats-item p {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: var(--spacing-xs);
+        color: var(--text-primary);
+        background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-primary) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        opacity: 0;
+        transform: translateY(10px);
+        animation: fadeInUp 0.5s forwards 0.2s;
+    }
+
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .stats-item p.positive {
+        background: linear-gradient(135deg, var(--positive) 0%, #34d399 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .stats-item p.negative {
+        background: linear-gradient(135deg, var(--negative) 0%, #f87171 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .telegram-buttons {
+        display: flex;
+        justify-content: center;
+        gap: var(--spacing-md);
+        margin-top: var(--spacing-lg);
+    }
+
+    .telegram-button {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+        padding: var(--spacing-md) var(--spacing-lg);
+        background: var(--bg-tertiary);
+        color: var(--text-primary);
+        border-radius: var(--radius-md);
+        text-decoration: none;
+        transition: var(--transition-normal);
+        border: 1px solid var(--border);
+        position: relative;
+        overflow: hidden;
+        font-weight: 500;
+    }
+
+    .telegram-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--gradient-primary);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .telegram-button:hover {
+        color: white;
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+    }
+
+    .telegram-button:hover::before {
+        opacity: 1;
+    }
+
+    .telegram-button ion-icon, 
+    .telegram-button span {
+        position: relative;
+        z-index: 1;
+    }
+
+    .telegram-button ion-icon {
+        font-size: 1.25rem;
+    }
+
+    .confirm-modal {
+        display: none;
+        position: fixed;
+        z-index: 1002;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(8px);
+    }
+
+    .confirm-modal-content {
+        background: var(--bg-card);
+        margin: 15% auto;
+        padding: var(--spacing-xl);
+        border: 1px solid var(--border);
+        width: 90%;
+        max-width: 400px;
+        border-radius: var(--radius-xl);
+        text-align: center;
+        box-shadow: var(--shadow-lg);
+        animation: modalAppear 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .confirm-modal-content::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--gradient-primary);
+    }
+
+    .confirm-buttons {
+        display: flex;
+        justify-content: center;
+        gap: var(--spacing-md);
+        margin-top: var(--spacing-lg);
+    }
+
+    .calculation-result {
+        background: var(--bg-tertiary);
+        padding: var(--spacing-md);
+        border-radius: var(--radius-md);
+        margin-top: var(--spacing-md);
+        border: 1px solid var(--border);
+        animation: fadeIn 0.5s ease;
+        position: relative;
+        overflow: hidden;
+        z-index: 10;
+        box-shadow: var(--shadow-md);
+    }
+
+    .calculation-result::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: var(--gradient-primary);
+    }
+
+    .calculation-result p {
+        margin-bottom: var(--spacing-xs);
+        position: relative;
+        padding-left: var(--spacing-sm);
+    }
+
+    .calculation-result p:last-child {
+        margin-bottom: 0;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: var(--bg-tertiary);
+        border-radius: var(--radius-full);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--gradient-primary);
+        border-radius: var(--radius-full);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--gradient-secondary);
+    }
+
+    /* Animations */
+    @keyframes itemAppear {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes floatUp {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+
+    /* Particle effects */
+    .particle {
+        position: fixed;
+        width: 3px;
+        height: 3px;
+        background: var(--accent-primary);
+        border-radius: var(--radius-full);
+        pointer-events: none;
+        opacity: 0.3;
+        z-index: -1;
+        filter: blur(1px);
+    }
+
+    .star {
+        position: fixed;
+        width: 2px;
+        height: 2px;
+        background: white;
+        border-radius: var(--radius-full);
+        pointer-events: none;
+        opacity: 0.5;
+        z-index: -1;
+        animation: starFloat 15s linear infinite;
+        filter: blur(0.5px);
+    }
+
+    .sparkle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: var(--accent-primary);
+        border-radius: 50%;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 10;
+        filter: blur(0.5px);
+        box-shadow: 0 0 10px var(--accent-primary-glow);
+    }
+
+    @keyframes sparkleAnimation {
+        0% { transform: scale(0); opacity: 0; }
+        50% { transform: scale(1); opacity: 1; }
+        100% { transform: scale(0); opacity: 0; }
+    }
+
+    @keyframes starFloat {
+        0% { transform: translateY(100vh) rotate(0deg); }
+        100% { transform: translateY(-100vh) rotate(360deg); }
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+        body {
+            padding: var(--spacing-md);
+        }
+
+        .dashboard {
+            gap: var(--spacing-md);
+        }
+
+        .profit-loss {
+            grid-template-columns: 1fr;
+            gap: var(--spacing-md);
+        }
+
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .telegram-buttons {
+            flex-direction: column;
+        }
+
+        .nav-bar {
+            top: auto;
+            bottom: var(--spacing-xl);
+            right: var(--spacing-xl);
+            flex-direction: row;
+        }
+
+        .add-btn {
+            bottom: var(--spacing-xl);
+            right: calc(var(--spacing-xl) + 60px + var(--spacing-md));
+        }
+    }
+
+    /* Glowing cursor effect */
+    .glow-cursor {
+        position: fixed;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: radial-gradient(circle, var(--accent-primary-glow) 0%, transparent 70%);
+        pointer-events: none;
+        z-index: 9999;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        mix-blend-mode: screen;
+    }
+
+    /* Floating elements animation */
+    .float-animation {
+        animation: floatUp 5s ease-in-out infinite;
+    }
+
+    /* Pulse animation for important elements */
+    .pulse-animation {
+        animation: pulse 3s ease-in-out infinite;
+    }
+
+    /* Notification styles */
+    .notification {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 12px 24px;
+        border-radius: var(--radius-md);
+        color: white;
+        font-weight: 500;
+        z-index: 9999;
+        opacity: 0;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-md);
+    }
+
+    .notification.success {
+        background: linear-gradient(135deg, var(--positive), #34d399);
+    }
+
+    .notification.error {
+        background: linear-gradient(135deg, var(--negative), #f87171);
+    }
+
+    .notification.info {
+        background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    }
+
+    /* Дополнительные стили для расширенной статистики */
+    .advanced-stats {
+        display: none;
+        margin-top: var(--spacing-xl);
+        animation: fadeIn 0.5s ease;
+    }
+
+    .advanced-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-lg);
+        margin-bottom: var(--spacing-xl);
+    }
+
+    .advanced-stats-card {
+        background: var(--bg-tertiary);
+        border-radius: var(--radius-md);
+        padding: var(--spacing-lg);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition-normal);
+    }
+
+    .advanced-stats-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+        border-color: var(--border-hover);
+    }
+
+    .advanced-stats-card h3 {
+        margin-bottom: var(--spacing-md);
+        font-size: 1.1rem;
+        color: var(--text-primary);
+        position: relative;
+        display: inline-block;
+    }
+
+    .advanced-stats-card h3::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 50px;
+        height: 2px;
+        background: var(--gradient-primary);
+    }
+
+    .monthly-profit-chart {
+        height: 300px;
+        margin-bottom: var(--spacing-xl);
+    }
+
+    .transaction-rank-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .transaction-rank-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--spacing-md);
+        border-bottom: 1px solid var(--border);
+        transition: var(--transition-normal);
+    }
+
+    .transaction-rank-item:last-child {
+        border-bottom: none;
+    }
+
+    .transaction-rank-item:hover {
+        background: var(--glass);
+        transform: translateX(5px);
+    }
+
+    .transaction-rank-info {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-xs);
+    }
+
+    .transaction-rank-name {
+        font-weight: 600;
+    }
+
+    .transaction-rank-date {
+        font-size: 0.8rem;
+        color: var(--text-tertiary);
+    }
+
+    .transaction-rank-amount {
+        font-weight: 700;
+    }
+
+    .transaction-rank-amount.positive {
+        color: var(--positive);
+    }
+
+    .transaction-rank-amount.negative {
+        color: var(--negative);
+    }
+
+    .best-day-card {
+        grid-column: span 2;
+    }
+
+    .best-day-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: var(--spacing-md);
+    }
+
+    .best-day-date {
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    .best-day-amount {
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+
+    .best-day-amount.positive {
+        color: var(--positive);
+    }
+
+    .best-day-amount.negative {
+        color: var(--negative);
+    }
+
+    .tab-buttons {
+        display: flex;
+        justify-content: center;
+        gap: var(--spacing-md);
+        margin-top: var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
+    }
+
+    /* Currency Switcher Styles */
+    .currency-switcher {
+        position: fixed;
+        top: var(--spacing-xl);
+        left: calc(var(--spacing-xl) + 60px);
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+        z-index: 100;
+    }
+
+    .currency-dropdown {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: var(--spacing-sm) var(--spacing-md);
+        color: var(--text-primary);
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition-normal);
+        box-shadow: var(--shadow-sm);
+        position: relative;
+        min-width: 100px;
+        text-align: center;
+    }
+
+    .currency-dropdown:hover {
+        border-color: var(--accent-primary);
+        box-shadow: var(--shadow-md);
+        transform: translateY(-2px);
+    }
+
+    .currency-options {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        margin-top: var(--spacing-xs);
+        box-shadow: var(--shadow-md);
+        overflow: hidden;
+        z-index: 101;
+        display: none;
+        animation: fadeIn 0.3s ease;
+    }
+
+    .currency-option {
+        padding: var(--spacing-sm) var(--spacing-md);
+        cursor: pointer;
+        transition: var(--transition-fast);
+    }
+
+    .currency-option:hover {
+        background: var(--glass-hover);
+        color: var(--accent-primary);
+    }
+
+    .currency-option.active {
+        background: var(--accent-primary);
+        color: white;
+    }
+
+    /* Modified currency info to appear on the right side */
+    .currency-info {
+        position: absolute;
+        top: 0;
+        left: 100%;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: 0.8rem;
+        color: var(--text-tertiary);
+        max-width: 200px;
+        box-shadow: var(--shadow-sm);
+        z-index: 99;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        pointer-events: none;
+        margin-left: var(--spacing-md);
+    }
+
+    .currency-dropdown:hover + .currency-info,
+    .currency-info:hover {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .currency-info-date {
+        font-weight: 600;
+        color: var(--accent-primary);
+    }
+</style>
+</head>
+<body>
+<div class="glow-cursor"></div>
+
+<div class="theme-toggle" onclick="toggleTheme()">
+<svg viewBox="0 0 24 24" id="theme-icon">
+    <path id="moon" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    <circle id="sun" cx="12" cy="12" r="5" style="display:none;"/>
+    <line id="sun-ray-1" x1="12" y1="1" x2="12" y2="3" style="display:none;"/>
+    <line id="sun-ray-2" x1="12" y1="21" x2="12" y2="23" style="display:none;"/>
+    <line id="sun-ray-3" x1="4.22" y1="4.22" x2="5.64" y2="5.64" style="display:none;"/>
+    <line id="sun-ray-4" x1="18.36" y1="18.36" x2="19.78" y2="19.78" style="display:none;"/>
+    <line id="sun-ray-5" x1="1" y1="12" x2="3" y2="12" style="display:none;"/>
+    <line id="sun-ray-6" x1="21" y1="12" x2="23" y2="12" style="display:none;"/>
+    <line id="sun-ray-7" x1="4.22" y1="19.78" x2="5.64" y2="18.36" style="display:none;"/>
+    <line id="sun-ray-8" x1="18.36" y1="5.64" x2="19.78" y2="4.22" style="display:none;"/>
+</svg>
+</div>
+
+<!-- Currency Switcher -->
+<div class="currency-switcher">
+    <div class="currency-dropdown" onclick="toggleCurrencyOptions()">
+        <span id="currentCurrency">USD</span>
+        <div class="currency-options" id="currencyOptions">
+            <div class="currency-option active" data-currency="USD" onclick="changeCurrency('USD')">USD</div>
+            <div class="currency-option" data-currency="EUR" onclick="changeCurrency('EUR')">EUR</div>
+            <div class="currency-option" data-currency="GBP" onclick="changeCurrency('GBP')">GBP</div>
+            <div class="currency-option" data-currency="CAD" onclick="changeCurrency('CAD')">CAD</div>
+            <div class="currency-option" data-currency="PLN" onclick="changeCurrency('PLN')">PLN</div>
+            <div class="currency-option" data-currency="UAH" onclick="changeCurrency('UAH')">UAH</div>
+            <div class="currency-option" data-currency="RUB" onclick="changeCurrency('RUB')">RUB</div>
+            <div class="currency-option" data-currency="KZT" onclick="changeCurrency('KZT')">KZT</div>
+        </div>
+    </div>
+    <div class="currency-info" id="currencyInfo">
+        <span>Курс обновляется ежедневно. Последнее обновление: </span> 
+        <span class="currency-info-date" id="lastUpdateDate">Загрузка...</span>
+    </div>
+</div>
+
+<div class="nav-bar">
+    <div class="nav-icon-wrapper">
+        <div class="nav-icon" onclick="window.location.href='invest.html'">
+            <ion-icon name="trending-up-outline"></ion-icon>
+        </div>
+        <div class="nav-tooltip">Инвестирование</div>
+    </div>
+    <div class="nav-icon-wrapper">
+        <div class="nav-icon" onclick="window.location.href='target.html'">
+            <ion-icon name="trophy-outline"></ion-icon>
+        </div>
+        <div class="nav-tooltip">Достижения</div>
+    </div>
+    <div class="nav-icon-wrapper">
+        <div class="nav-icon" onclick="window.location.href='statistics.html'">
+            <ion-icon name="library-outline"></ion-icon>
+        </div>
+        <div class="nav-tooltip">Статистика</div>
+    </div>
+    <div class="nav-icon-wrapper">
+        <div class="nav-icon" onclick="exportTransactions()">
+            <ion-icon name="swap-vertical-outline"></ion-icon>
+        </div>
+        <div class="nav-tooltip">Экспорт</div>
+    </div>
+    <div class="nav-icon-wrapper">
+        <div class="nav-icon" onclick="document.getElementById('fileInput').click()">
+            <ion-icon name="cloud-upload-outline"></ion-icon>
+        </div>
+        <div class="nav-tooltip">Импорт</div>
+    </div>
+</div>
+
+<div class="dashboard">
+<div class="card balance-card float-animation">
+    <div class="card-glow"></div>
+    <h3>Общий баланс</h3>
+    <h1 id="totalBalance" class="pulse-animation">$0</h1>
+    <div class="btn-group">
+        <button class="btn btn-secondary" onclick="changePeriod('day')">День</button>
+        <button class="btn btn-secondary" onclick="changePeriod('week')">Неделя</button>
+        <button class="btn btn-secondary" onclick="changePeriod('month')">Месяц</button>
+        <button class="btn btn-secondary btn-active" onclick="changePeriod('all')">Все</button>
+    </div>
+    <button class="btn btn-primary btn-large" onclick="openStatsModal()">
+        <ion-icon name="stats-chart-outline"></ion-icon>
+        Показать статистику
+    </button>
+    <div class="telegram-buttons">
+        <a href="https://t.me/res661" target="_blank" class="telegram-button" rel="noreferrer">
+            <ion-icon name="paper-plane-outline"></ion-icon>
+            <span>Telegram 1</span>
+        </a>
+        <a href="https://t.me/slavniytrade" target="_blank" class="telegram-button" rel="noreferrer">
+            <ion-icon name="paper-plane-outline"></ion-icon>
+            <span>Telegram 2</span>
+        </a>
+    </div>
+</div>
+
+<div class="profit-loss">
+    <div class="card profit-loss-card income">
+        <div class="card-glow"></div>
+        <h3>Общий доход</h3>
+        <h2 id="totalIncome">$0</h2>
+    </div>
+    <div class="card profit-loss-card expense">
+        <div class="card-glow"></div>
+        <h3>Общий расход</h3>
+        <h2 id="totalExpense">$0</h2>
+    </div>
+</div>
+
+<div class="card chart-container">
+    <div class="card-glow"></div>
+    <div class="chart-glow"></div>
+    <canvas id="mainChart"></canvas>
+</div>
+<button class="switch-view right" onclick="switchToCalendar()">
+    <span>❯</span>
+</button>
+
+<div class="card calendar-container">
+    <div class="card-glow"></div>
+    <div class="calendar-nav">
+        <button class="btn btn-secondary" onclick="changeMonth(-1)">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+        </button>
+        <h2 id="currentMonth"></h2>
+        <button class="btn btn-secondary" onclick="changeMonth(1)">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+        </button>
+    </div>
+    <div class="calendar-grid" id="calendarGrid"></div>
+</div>
+<button class="switch-view left" onclick="switchToChart()">
+    <span>❮</span>
+</button>
+
+<div class="search-container">
+    <input type="date" id="searchDate" class="search-input" onchange="filterTransactions()" placeholder="Поиск по дате">
+</div>
+
+<div class="transactions-list" id="transactions"></div>
+
+<button class="add-btn" onclick="openModal()">
+    <span>+</span>
+</button>
+</div>
+
+<!-- Transaction Modal -->
+<div id="transactionModal" class="modal">
+<div class="modal-content">
+    <div class="modal-header">
+        <h2>Добавить транзакцию</h2>
+        <span class="close" onclick="closeModalWithConfirmation()">&times;</span>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="transactionType">Тип транзакции</label>
+            <select id="transactionType" class="form-control" onchange="toggleTransactionFields()">
+                <option value="simple">Простая транзакция</option>
+                <option value="advanced">Расширенная сделка</option>
+            </select>
+        </div>
+        
+        <div id="simpleTransactionFields">
+            <div class="form-group">
+                <label for="type">Категория</label>
+                <select id="type" class="form-control">
+                    <option value="income">Доход</option>
+                    <option value="expense">Расход</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="amount">Сумма</label>
+                <input type="number" id="amount" placeholder="Введите сумму" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="date">Дата</label>
+                <input type="date" id="date" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="description">Описание</label>
+                <textarea id="description" placeholder="Введите описание" class="form-control"></textarea>
+            </div>
+        </div>
+        
+        <div id="advancedTransactionFields" style="display:none;">
+            <div class="form-group">
+                <label for="skinName">Название скина</label>
+                <input type="text" id="skinName" placeholder="Введите название скина" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="buyPrice">Цена покупки ($)</label>
+                <input type="number" id="buyPrice" placeholder="Введите цену покупки" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="sellPrice">Цена продажи ($)</label>
+                <input type="number" id="sellPrice" placeholder="Введите цену продажи" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="profitPercentage">Комиссия</label>
+                <select id="profitPercentage" class="form-control">
+                    <option value="2">2%</option>
+                    <option value="2.5">2.5%</option>
+                    <option value="5">5%</option>
+                    <option value="10">10%</option>
+                    <option value="13">13%</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="advancedDate">Дата</label>
+                <input type="date" id="advancedDate" class="form-control">
+            </div>
+            <button onclick="calculateProfit()" class="btn btn-secondary btn-large">Рассчитать</button>
+            <div id="calculationResult" class="calculation-result" style="display:none;"></div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button onclick="closeModal()" class="btn btn-secondary">Отмена</button>
+        <button onclick="addTransaction()" id="addTransactionBtn" class="btn btn-primary">Добавить</button>
+        <button onclick="addAdvancedTransaction()" id="addAdvancedTransactionBtn" class="btn btn-primary" style="display:none;">Добавить сделку</button>
+    </div>
+</div>
+</div>
+
+<!-- Stats Modal -->
+<div id="statsModal" class="modal">
+<div class="modal-content">
+    <div class="modal-header">
+        <h2>Статистика</h2>
+        <span class="close" onclick="closeStatsModal()">&times;</span>
+    </div>
+    <div class="modal-body">
+        <div class="stats-grid">
+            <div class="stats-item">
+                <h3>Сегодня</h3>
+                <p id="todayEarnings">$0</p>
+                <small id="todayDeals">0 сделок</small>
+            </div>
+            <div class="stats-item">
+                <h3>Вчера</h3>
+                <p id="yesterdayEarnings">$0</p>
+                <small id="yesterdayDeals">0 сделок</small>
+            </div>
+            <div class="stats-item">
+                <h3>Последние 7 дней</h3>
+                <p id="weekEarnings">$0</p>
+                <small id="weekDeals">0 сделок</small>
+            </div>
+            <div class="stats-item">
+                <h3>Последние 30 дней</h3>
+                <p id="monthEarnings">$0</p>
+                <small id="monthDeals">0 сделок</small>
+            </div>
+            <div class="stats-item" style="grid-column: span 2;">
+                <h3>Итого за всё время</h3>
+                <p id="totalEarnings">$0</p>
+                <small id="totalDeals">0 сделок</small>
+            </div>
+        </div>
+        
+        <div class="tab-buttons">
+            <button class="btn btn-primary" onclick="showAdvancedStats()">
+                <ion-icon name="analytics-outline"></ion-icon>
+                Дополнительная статистика
+            </button>
+        </div>
+        
+        <div id="advancedStats" class="advanced-stats">
+            <div class="monthly-profit-chart">
+                <canvas id="monthlyProfitChart"></canvas>
+            </div>
+            
+            <div class="advanced-stats-grid">
+                <div class="advanced-stats-card">
+                    <h3>Топ-5 прибыльных сделок</h3>
+                    <ul class="transaction-rank-list" id="topProfitableDeals">
+                        <!-- Будет заполнено динамически -->
+                    </ul>
+                </div>
+                
+                <div class="advanced-stats-card">
+                    <h3>Топ-5 убыточных сделок</h3>
+                    <ul class="transaction-rank-list" id="topLossDeals">
+                        <!-- Будет заполнено динамически -->
+                    </ul>
+                </div>
+                
+                <div class="advanced-stats-card best-day-card">
+                    <h3>Лучший день</h3>
+                    <div class="best-day-info" id="bestDayInfo">
+                        <!-- Будет заполнено динамически -->
+                    </div>
+                </div>
+                
+                <div class="advanced-stats-card best-day-card">
+                    <h3>Худший день</h3>
+                    <div class="best-day-info" id="worstDayInfo">
+                        <!-- Будет заполнено динамически -->
+                    </div>
+                </div>
+                
+                <div class="advanced-stats-card best-day-card">
+                    <h3>Средний дневной заработок</h3>
+                    <div class="best-day-info">
+                        <span class="best-day-date">За выбранный период</span>
+                        <span class="best-day-amount" id="averageDailyProfit">$0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button onclick="closeStatsModal()" class="btn btn-primary">Закрыть</button>
+    </div>
+</div>
+</div>
+
+<!-- Confirm Modal -->
+<div id="confirmModal" class="confirm-modal">
+<div class="confirm-modal-content">
+    <p>Выйти без изменений?</p>
+    <div class="confirm-buttons">
+        <button onclick="confirmCloseModal(true)" class="btn btn-primary">Да</button>
+        <button onclick="confirmCloseModal(false)" class="btn btn-secondary">Нет</button>
+    </div>
+</div>
+</div>
+
+<!-- Hidden file input -->
+<input type="file" id="fileInput" style="display:none" onchange="importTransactions(event)">
+
+<script>
+let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+let chart;
+let monthlyProfitChart;
+let currentPeriod = 'all';
+let lastCalculatedProfit = 0;
+let currentDate = new Date();
+let editingTransactionIndex = null;
+let hasChanges = false;
+let sparkles = [];
+let currentCurrency = 'USD';
+let exchangeRates = {};
+let lastRatesUpdate = null;
+
+// API конфигурация
+const API_CONFIG = {
+    url: 'https://apilayer.net/api/live',
+    access_key: 'c02aef899e848950cd99e5899c67e134',
+    currencies: 'EUR,GBP,CAD,PLN,UAH,RUB,KZT',
+    source: 'USD',
+    format: 1
+};
+
+// Функция для получения курсов валют
+async function fetchExchangeRates() {
+    try {
+        // Проверяем, есть ли сохраненные курсы и не устарели ли они
+        const savedRates = localStorage.getItem('exchangeRates');
+        const savedDate = localStorage.getItem('ratesLastUpdate');
+        
+        if (savedRates && savedDate) {
+            const lastUpdate = new Date(savedDate);
+            const now = new Date();
+            
+            // Если курсы обновлялись сегодня, используем их
+            if (lastUpdate.toDateString() === now.toDateString()) {
+                exchangeRates = JSON.parse(savedRates);
+                lastRatesUpdate = lastUpdate;
+                updateCurrencyInfo();
+                return;
+            }
+        }
+        
+        // Если курсов нет или они устарели, запрашиваем новые
+        const queryParams = new URLSearchParams({
+            access_key: API_CONFIG.access_key,
+            currencies: API_CONFIG.currencies,
+            source: API_CONFIG.source,
+            format: API_CONFIG.format
+        });
+        
+        const response = await fetch(`${API_CONFIG.url}?${queryParams}`);
+        const data = await response.json();
+        
+        if (data.success) {
+            exchangeRates = data.quotes;
+            lastRatesUpdate = new Date();
+            
+            // Сохраняем курсы и дату обновления
+            localStorage.setItem('exchangeRates', JSON.stringify(exchangeRates));
+            localStorage.setItem('ratesLastUpdate', lastRatesUpdate.toISOString());
+            
+            updateCurrencyInfo();
+            showNotification('Курсы валют успешно обновлены', 'success');
+        } else {
+            throw new Error(data.error?.info || 'Ошибка при получении курсов валют');
+        }
+    } catch (error) {
+        console.error('Ошибка при получении курсов валют:', error);
+        
+        // Если есть сохраненные курсы, используем их даже если они устарели
+        const savedRates = localStorage.getItem('exchangeRates');
+        const savedDate = localStorage.getItem('ratesLastUpdate');
+        
+        if (savedRates && savedDate) {
+            exchangeRates = JSON.parse(savedRates);
+            lastRatesUpdate = new Date(savedDate);
+            updateCurrencyInfo();
+            showNotification('Используются сохраненные курсы валют', 'info');
+        } else {
+            showNotification('Ошибка при получении курсов валют', 'error');
+        }
+    }
+}
+
+// Обновляем информацию о последнем обновлении курсов
+function updateCurrencyInfo() {
+    const dateElement = document.getElementById('lastUpdateDate');
+    if (lastRatesUpdate) {
+        dateElement.textContent = lastRatesUpdate.toLocaleDateString();
+    } else {
+        dateElement.textContent = 'Нет данных';
+    }
+}
+
+// Функция для конвертации суммы из USD в выбранную валюту
+function convertCurrency(amount, fromCurrency = 'USD', toCurrency = currentCurrency) {
+    if (fromCurrency === toCurrency) return amount;
+    
+    if (toCurrency === 'USD') {
+        // Конвертация из другой валюты в USD
+        const rate = exchangeRates[`USD${fromCurrency}`];
+        return rate ? amount / rate : amount;
+    } else {
+        // Конвертация из USD в другую валюту
+        const rate = exchangeRates[`USD${toCurrency}`];
+        return rate ? amount * rate : amount;
+    }
+}
+
+// Функция для получения символа валюты
+function getCurrencySymbol(currency) {
+    const symbols = {
+        'USD': '$',
+        'EUR': '€',
+        'GBP': '£',
+        'CAD': 'C$',
+        'PLN': 'zł',
+        'UAH': '₴',
+        'RUB': '₽',
+        'KZT': '₸'
+    };
+    
+    return symbols[currency] || currency;
+}
+
+// Функция для форматирования суммы в выбранной валюте
+function formatCurrency(amount, currency = currentCurrency) {
+    const symbol = getCurrencySymbol(currency);
+    return `${symbol}${amount.toLocaleString(undefined, {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
+    })}`;
+}
+
+// Функция для переключения валюты
+function changeCurrency(currency) {
+    if (currency === currentCurrency) return;
+    
+    currentCurrency = currency;
+    document.getElementById('currentCurrency').textContent = currency;
+    
+    // Обновляем активную валюту в выпадающем списке
+    const options = document.querySelectorAll('.currency-option');
+    options.forEach(option => {
+        if (option.dataset.currency === currency) {
+            option.classList.add('active');
+        } else {
+            option.classList.remove('active');
+        }
+    });
+    
+    // Закрываем выпадающий список
+    document.getElementById('currencyOptions').style.display = 'none';
+    
+    // Обновляем UI с новой валютой
+    updateUI();
+    
+    // Создаем эффект искр
+    createSparklesAround(document.querySelector('.currency-dropdown'), 15);
+    
+    // Показываем уведомление
+    showNotification(`Валюта изменена на ${currency}`, 'success');
+}
+
+// Функция для отображения/скрытия списка валют
+function toggleCurrencyOptions() {
+    const options = document.getElementById('currencyOptions');
+    options.style.display = options.style.display === 'block' ? 'none' : 'block';
+    
+    if (options.style.display === 'block') {
+        // Анимируем появление опций
+        const optionElements = document.querySelectorAll('.currency-option');
+        optionElements.forEach((option, index) => {
+            gsap.fromTo(option, 
+                { opacity: 0, y: -10 }, 
+                { opacity: 1, y: 0, duration: 0.2, delay: index * 0.05 }
+            );
+        });
+    }
+}
+
+// Закрываем выпадающий список при клике вне его
+document.addEventListener('click', function(event) {
+    const dropdown = document.querySelector('.currency-dropdown');
+    const options = document.getElementById('currencyOptions');
+    
+    if (!dropdown.contains(event.target) && options.style.display === 'block') {
+        options.style.display = 'none';
+    }
+});
+
+function initChart() {
+    const ctx = document.getElementById('mainChart').getContext('2d');
+    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, 'rgba(79, 70, 229, 0.3)');
+    gradient.addColorStop(0.5, 'rgba(139, 92, 246, 0.15)');
+    gradient.addColorStop(1, 'rgba(236, 72, 153, 0.05)');
+
+    chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Баланс',
+                data: [],
+                borderColor: '#4f46e5',
+                borderWidth: 3,
+                tension: 0.4,
+                fill: true,
+                backgroundColor: gradient,
+                pointRadius: 4,
+                pointHoverRadius: 8,
+                pointBackgroundColor: '#4f46e5',
+                pointHoverBackgroundColor: '#4f46e5',
+                pointBorderColor: 'white',
+                pointHoverBorderColor: 'white',
+                pointBorderWidth: 2,
+                pointHoverBorderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                    bodyColor: '#fff',
+                    borderColor: 'rgba(255, 255, 255, 0.1)',
+                    borderWidth: 1,
+                    padding: 12,
+                    displayColors: false,
+                    callbacks: {
+                        label: function(context) {
+                            return formatCurrency(context.parsed.y);
+                        }
+                    },
+                    animation: {
+                        duration: 400,
+                        easing: 'easeOutQuart'
+                    }
+                }
+            },
+            scales: {
+                x: { 
+                    grid: { 
+                        color: 'rgba(255, 255, 255, 0.05)',
+                        drawBorder: false
+                    },
+                    ticks: { 
+                        color: 'rgba(255, 255, 255, 0.5)',
+                        font: {
+                            size: 10
+                        },
+                        maxRotation: 0
+                    }
+                },
+                y: { 
+                    grid: { 
+                        color: 'rgba(255, 255, 255, 0.05)',
+                        drawBorder: false
+                    },
+                    ticks: { 
+                        color: 'rgba(255, 255, 255, 0.5)',
+                        callback: value => formatCurrency(value),
+                        font: {
+                            size: 10
+                        }
+                    },
+                    beginAtZero: true
+                }
+            },
+            interaction: {
+                mode: 'index',
+                intersect: false
+            },
+            elements: {
+                line: {
+                    borderJoinStyle: 'round'
+                }
+            },
+            animation: {
+                duration: 1500,
+                easing: 'easeOutQuart'
+            }
+        }
+    });
+}
+
+function initMonthlyProfitChart() {
+    if (!document.getElementById('monthlyProfitChart')) return;
+    
+    const ctx = document.getElementById('monthlyProfitChart').getContext('2d');
+    
+    // Получаем данные по месяцам
+    const monthlyData = getMonthlyProfitData();
+    
+    // Создаем градиенты для положительных и отрицательных значений
+    const positiveGradient = ctx.createLinearGradient(0, 0, 0, 400);
+    positiveGradient.addColorStop(0, 'rgba(16, 185, 129, 0.7)');
+    positiveGradient.addColorStop(1, 'rgba(16, 185, 129, 0.1)');
+    
+    const negativeGradient = ctx.createLinearGradient(0, 0, 0, 400);
+    negativeGradient.addColorStop(0, 'rgba(239, 68, 68, 0.7)');
+    negativeGradient.addColorStop(1, 'rgba(239, 68, 68, 0.1)');
+    
+    monthlyProfitChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: monthlyData.labels,
+            datasets: [{
+                label: 'Прибыль по месяцам',
+                data: monthlyData.data,
+                backgroundColor: function(context) {
+                    const value = context.dataset.data[context.dataIndex];
+                    return value >= 0 ? positiveGradient : negativeGradient;
+                },
+                borderColor: function(context) {
+                    const value = context.dataset.data[context.dataIndex];
+                    return value >= 0 ? 'rgba(16, 185, 129, 1)' : 'rgba(239, 68, 68, 1)';
+                },
+                borderWidth: 1,
+                borderRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                    bodyColor: '#fff',
+                    borderColor: 'rgba(255, 255, 255, 0.1)',
+                    borderWidth: 1,
+                    padding: 12,
+                    displayColors: false,
+                    callbacks: {
+                        label: function(context) {
+                            return formatCurrency(context.parsed.y);
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: { 
+                    grid: { 
+                        color: 'rgba(255, 255, 255, 0.05)',
+                        drawBorder: false
+                    },
+                    ticks: { 
+                        color: 'rgba(255, 255, 255, 0.5)',
+                        font: {
+                            size: 10
+                        }
+                    }
+                },
+                y: { 
+                    grid: { 
+                        color: 'rgba(255, 255, 255, 0.05)',
+                        drawBorder: false
+                    },
+                    ticks: { 
+                        color: 'rgba(255, 255, 255, 0.5)',
+                        callback: value => formatCurrency(value),
+                        font: {
+                            size: 10
+                        }
+                    }
+                }
+            },
+            animation: {
+                duration: 1500,
+                easing: 'easeOutQuart'
+            }
+        }
+    });
+}
+
+function getMonthlyProfitData() {
+    // Создаем объект для хранения данных по месяцам
+    const monthlyProfit = {};
+    const monthNames = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
+    
+    // Обрабатываем все транзакции
+    transactions.forEach(t => {
+        const date = new Date(t.date);
+        const monthYear = `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
+        
+        if (!monthlyProfit[monthYear]) {
+            monthlyProfit[monthYear] = 0;
+        }
+        
+        const amount = convertCurrency(t.amount);
+        
+        if (t.type === 'income') {
+            monthlyProfit[monthYear] += amount;
+        } else {
+            monthlyProfit[monthYear] -= amount;
+        }
+    });
+    
+    // Сортируем месяцы хронологически
+    const sortedMonths = Object.keys(monthlyProfit).sort((a, b) => {
+        const [monthA, yearA] = a.split(' ');
+        const [monthB, yearB] = b.split(' ');
+        
+        if (yearA !== yearB) {
+            return parseInt(yearA) - parseInt(yearB);
+        }
+        
+        return monthNames.indexOf(monthA) - monthNames.indexOf(monthB);
+    });
+    
+    return {
+        labels: sortedMonths,
+        data: sortedMonths.map(month => monthlyProfit[month])
+    };
+}
+
+function updateTopDeals() {
+    // Получаем топ-5 прибыльных сделок
+    const profitableDeals = [...transactions]
+        .filter(t => t.type === 'income')
+        .sort((a, b) => convertCurrency(b.amount) - convertCurrency(a.amount))
+        .slice(0, 5);
+    
+    // Получаем топ-5 убыточных сделок
+    const lossDeals = [...transactions]
+        .filter(t => t.type === 'expense')
+        .sort((a, b) => convertCurrency(b.amount) - convertCurrency(a.amount))
+        .slice(0, 5);
+    
+    // Обновляем списки
+    const profitableList = document.getElementById('topProfitableDeals');
+    const lossList = document.getElementById('topLossDeals');
+    
+    if (profitableList) {
+        profitableList.innerHTML = profitableDeals.map(deal => `
+            <li class="transaction-rank-item">
+                <div class="transaction-rank-info">
+                    <span class="transaction-rank-name">${deal.description}</span>
+                    <span class="transaction-rank-date">${new Date(deal.date).toLocaleDateString()}</span>
+                </div>
+                <span class="transaction-rank-amount positive">+${formatCurrency(convertCurrency(deal.amount))}</span>
+            </li>
+        `).join('');
+        
+        // Если сделок меньше 5, добавляем пустые элементы
+        if (profitableDeals.length < 5) {
+            for (let i = profitableDeals.length; i < 5; i++) {
+                profitableList.innerHTML += `
+                    <li class="transaction-rank-item">
+                        <div class="transaction-rank-info">
+                            <span class="transaction-rank-name">Нет данных</span>
+                            <span class="transaction-rank-date">-</span>
+                        </div>
+                        <span class="transaction-rank-amount">-</span>
+                    </li>
+                `;
+            }
+        }
+    }
+    
+    if (lossList) {
+        lossList.innerHTML = lossDeals.map(deal => `
+            <li class="transaction-rank-item">
+                <div class="transaction-rank-info">
+                    <span class="transaction-rank-name">${deal.description}</span>
+                    <span class="transaction-rank-date">${new Date(deal.date).toLocaleDateString()}</span>
+                </div>
+                <span class="transaction-rank-amount negative">-${formatCurrency(convertCurrency(deal.amount))}</span>
+            </li>
+        `).join('');
+        
+        // Если сделок меньше 5, добавляем пустые элементы
+        if (lossDeals.length < 5) {
+            for (let i = lossDeals.length; i < 5; i++) {
+                lossList.innerHTML += `
+                    <li class="transaction-rank-item">
+                        <div class="transaction-rank-info">
+                            <span class="transaction-rank-name">Нет данных</span>
+                            <span class="transaction-rank-date">-</span>
+                        </div>
+                        <span class="transaction-rank-amount">-</span>
+                    </li>
+                `;
+            }
+        }
+    }
+}
+
+function updateBestWorstDays() {
+    // Группируем транзакции по дням
+    const dailyProfits = {};
+    
+    transactions.forEach(t => {
+        if (!dailyProfits[t.date]) {
+            dailyProfits[t.date] = 0;
+        }
+        
+        const amount = convertCurrency(t.amount);
+        
+        if (t.type === 'income') {
+            dailyProfits[t.date] += amount;
+        } else {
+            dailyProfits[t.date] -= amount;
+        }
+    });
+    
+    // Находим лучший и худший дни
+    let bestDay = { date: null, profit: -Infinity };
+    let worstDay = { date: null, profit: Infinity };
+    
+    Object.entries(dailyProfits).forEach(([date, profit]) => {
+        if (profit > bestDay.profit) {
+            bestDay = { date, profit };
+        }
+        
+        if (profit < worstDay.profit) {
+            worstDay = { date, profit };
+        }
+    });
+    
+    // Обновляем информацию
+    const bestDayInfo = document.getElementById('bestDayInfo');
+    const worstDayInfo = document.getElementById('worstDayInfo');
+    
+    if (bestDayInfo && bestDay.date) {
+        bestDayInfo.innerHTML = `
+            <span class="best-day-date">${new Date(bestDay.date).toLocaleDateString()}</span>
+            <span class="best-day-amount positive">+${formatCurrency(bestDay.profit)}</span>
+        `;
+    } else if (bestDayInfo) {
+        bestDayInfo.innerHTML = `
+            <span class="best-day-date">Нет данных</span>
+            <span class="best-day-amount">-</span>
+        `;
+    }
+    
+    if (worstDayInfo && worstDay.date) {
+        worstDayInfo.innerHTML = `
+            <span class="best-day-date">${new Date(worstDay.date).toLocaleDateString()}</span>
+            <span class="best-day-amount negative">-${formatCurrency(Math.abs(worstDay.profit))}</span>
+        `;
+    } else if (worstDayInfo) {
+        worstDayInfo.innerHTML = `
+            <span class="best-day-date">Нет данных</span>
+            <span class="best-day-amount">-</span>
+        `;
+    }
+    
+    // Рассчитываем средний дневной заработок
+    const averageDailyProfitElement = document.getElementById('averageDailyProfit');
+    if (averageDailyProfitElement) {
+        const days = Object.keys(dailyProfits).length;
+        const totalProfit = Object.values(dailyProfits).reduce((sum, profit) => sum + profit, 0);
+        const averageProfit = days > 0 ? totalProfit / days : 0;
+        
+        averageDailyProfitElement.textContent = formatCurrency(averageProfit);
+        averageDailyProfitElement.className = averageProfit >= 0 ? 'best-day-amount positive' : 'best-day-amount negative';
+    }
+}
+
+function showAdvancedStats() {
+    const advancedStats = document.getElementById('advancedStats');
+    if (advancedStats) {
+        advancedStats.style.display = 'block';
+        
+        // Инициализируем график, если он еще не создан
+        if (!monthlyProfitChart) {
+            initMonthlyProfitChart();
+        } else {
+            // Обновляем данные графика
+            const monthlyData = getMonthlyProfitData();
+            monthlyProfitChart.data.labels = monthlyData.labels;
+            monthlyProfitChart.data.datasets[0].data = monthlyData.data;
+            monthlyProfitChart.update();
+        }
+        
+        // Обновляем топ сделок
+        updateTopDeals();
+        
+        // Обновляем лучший/худший дни
+        updateBestWorstDays();
+        
+        // Анимируем появление
+        gsap.fromTo(advancedStats, 
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.7)" }
+        );
+        
+        // Создаем эффект искр
+        createSparklesAround(document.querySelector('.tab-buttons .btn-primary'), 10);
+    }
+}
+
+function updateBalance() {
+    const filteredTransactions = filterTransactionsByPeriod(transactions, currentPeriod);
+    let balance = 0;
+    
+    filteredTransactions.forEach(t => {
+        const amount = convertCurrency(t.amount);
+        balance = t.type === 'income' ? balance + amount : balance - amount;
+    });
+    
+    // Animate the balance change
+    const balanceElement = document.getElementById('totalBalance');
+    const currentBalanceText = balanceElement.textContent;
+    const currentBalanceValue = parseFloat(currentBalanceText.replace(/[^0-9.-]+/g, '')) || 0;
+    
+    animateValue(balanceElement, currentBalanceValue, balance, 1000, getCurrencySymbol(currentCurrency));
+}
+
+function animateValue(element, start, end, duration, prefix = '', suffix = '') {
+    const startTime = performance.now();
+    const updateAnimation = (currentTime) => {
+        const elapsedTime = currentTime - startTime;
+        const progress = Math.min(elapsedTime / duration, 1);
+        const easedProgress = easeOutQuart(progress);
+        const value = start + (end - start) * easedProgress;
+        
+        element.textContent = `${prefix}${value.toLocaleString(undefined, {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2
+        })}${suffix}`;
+        
+        if (progress < 1) {
+            requestAnimationFrame(updateAnimation);
+        } else {
+            // Create sparkles around the element when animation completes
+            if (Math.abs(end - start) > 10) {
+                createSparklesAround(element, 10);
+            }
+        }
+    };
+    
+    requestAnimationFrame(updateAnimation);
+}
+
+function easeOutQuart(x) {
+    return 1 - Math.pow(1 - x, 4);
+}
+
+function renderTransactions() {
+    const container = document.getElementById('transactions');
+    container.innerHTML = transactions.map((t, i) => `
+        <div class="transaction-item" data-index="${i}">
+            <div class="transaction-info">
+                <h4>${t.description}</h4>
+                <small>${new Date(t.date).toLocaleDateString()}</small>
+            </div>
+            <div class="transaction-actions">
+                <span class="transaction-amount ${t.type === 'income' ? 'amount-positive' : 'amount-negative'}">
+                    ${t.type === 'income' ? '+' : '-'}${formatCurrency(convertCurrency(t.amount))}
+                </span>
+                <button onclick="editTransaction(${i})" class="btn btn-secondary btn-icon">
+                    <ion-icon name="create-outline"></ion-icon>
+                </button>
+                <button onclick="confirmDelete(${i})" class="btn btn-secondary btn-icon">
+                    <ion-icon name="trash-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+    `).join('');
+
+    // Add animation delay to each transaction item
+    const items = document.querySelectorAll('.transaction-item');
+    items.forEach((item, index) => {
+        item.style.animationDelay = `${index * 0.05}s`;
+        
+        // Add hover effect listeners for sparkles
+        item.addEventListener('mouseenter', function() {
+            createSparklesAround(this, 5);
+        });
+    });
+}
+
+function addTransaction() {
+    const amount = parseFloat(document.getElementById('amount').value);
+    if (isNaN(amount) || amount <= 0) return alert('Введите корректную сумму');
+
+    const transaction = {
+        type: document.getElementById('type').value,
+        amount: amount,
+        description: document.getElementById('description').value || 'Без описания',
+        date: document.getElementById('date').value || new Date().toISOString().split('T')[0]
+    };
+    
+    if (editingTransactionIndex !== null) {
+        transactions[editingTransactionIndex] = transaction;
+    } else {
+        transactions.push(transaction);
+    }
+    
+    localStorage.setItem('transactions', JSON.stringify(transactions));
+    updateUI();
+    closeModal();
+    
+    // Create sparkles effect
+    createSparklesAround(document.querySelector('.add-btn'), 15);
+    
+    // Show success notification
+    showNotification('Транзакция успешно добавлена', 'success');
+}
+
+function calculateProfit() {
+    const skinName = document.getElementById('skinName').value;
+    const buy = parseFloat(document.getElementById('buyPrice').value);
+    const sell = parseFloat(document.getElementById('sellPrice').value);
+    const percent = parseFloat(document.getElementById('profitPercentage').value);
+    
+    if (!skinName || isNaN(buy) || isNaN(sell)) {
+        alert('Пожалуйста, заполните все поля');
+        return;
+    }
+    
+    const fee = sell * (percent / 100);
+    const profit = sell - buy - fee;
+    lastCalculatedProfit = profit;
+
+    const resultHTML = `
+        <p><strong>Тема:</strong> ${skinName}</p>
+        <p><strong>Цена покупки:</strong> ${formatCurrency(convertCurrency(buy))}</p>
+        <p><strong>Цена продажи:</strong> ${formatCurrency(convertCurrency(sell))}</p>
+        <p><strong>Комиссия:</strong> ${formatCurrency(convertCurrency(fee))} (${percent}%)</p>
+        <p><strong>Прибыль:</strong> <span class="${profit >= 0 ? 'positive-balance' : 'negative-balance'}">${formatCurrency(convertCurrency(profit))}</span></p>
+    `;
+    
+    const resultElement = document.getElementById('calculationResult');
+    resultElement.innerHTML = resultHTML;
+    resultElement.style.display = 'block';
+    
+    // Улучшенная анимация появления результата
+    gsap.fromTo(resultElement, 
+        { y: -20, opacity: 0, scale: 0.95 },
+        { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.7)" }
+    );
+    
+    // Добавляем эффект свечения вокруг результата
+    gsap.to(resultElement, {
+        boxShadow: '0 0 20px var(--accent-primary-glow)',
+        duration: 0.5
+    });
+    
+    document.getElementById('addAdvancedTransactionBtn').style.display = 'block';
+    document.getElementById('addTransactionBtn').style.display = 'none';
+    hasChanges = true;
+    
+    // Create sparkles effect
+    createSparklesAround(resultElement, 15);
+    
+    // Прокручиваем к результату, чтобы он был виден
+    resultElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function addAdvancedTransaction() {
+    if (lastCalculatedProfit === 0 && !confirm('Прибыль равна 0. Вы уверены, что хотите добавить эту сделку?')) {
+        return;
+    }
+
+    const skinName = document.getElementById('skinName').value;
+    const buyPrice = parseFloat(document.getElementById('buyPrice').value);
+    const sellPrice = parseFloat(document.getElementById('sellPrice').value);
+    const percent = parseFloat(document.getElementById('profitPercentage').value);
+    const date = document.getElementById('advancedDate').value || new Date().toISOString().split('T')[0];
+
+    const transaction = {
+        type: lastCalculatedProfit >= 0 ? 'income' : 'expense',
+        amount: Math.abs(lastCalculatedProfit),
+        description: `${skinName} (${lastCalculatedProfit >= 0 ? 'прибыль' : 'убыток'}: ${formatCurrency(Math.abs(lastCalculatedProfit))})`,
+        date: date,
+        theme: skinName,
+        buyPrice: buyPrice,
+        sellPrice: sellPrice,
+        commission: percent
+    };
+
+    if (editingTransactionIndex !== null) {
+        transactions[editingTransactionIndex] = transaction;
+    } else {
+        transactions.push(transaction);
+    }
+
+    localStorage.setItem('transactions', JSON.stringify(transactions));
+    updateUI();
+    closeModal();
+    
+    // Create sparkles effect
+    createSparklesAround(document.querySelector('.add-btn'), 15);
+    
+    // Show success notification
+    showNotification('Сделка успешно добавлена', 'success');
+}
+
+function exportTransactions() {
+    const data = JSON.stringify(transactions, null, 2);
+    const blob = new Blob([data], {type: 'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'transactions.json';
+    a.click();
+    
+    // Create sparkles effect
+    createSparklesAround(document.querySelector('.nav-icon:nth-child(3)'), 10);
+    
+    // Show success notification
+    showNotification('Данные успешно экспортированы', 'success');
+}
+
+function importTransactions(e) {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const content = e.target.result;
+        try {
+            const jsonData = JSON.parse(content);
+            transactions = jsonData;
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+            updateUI();
+            
+            // Create sparkles effect
+            createSparklesAround(document.querySelector('.nav-icon:nth-child(4)'), 15);
+            
+            // Show success message with animation
+            showNotification('Данные успешно импортированы', 'success');
+        } catch (error) {
+            try {
+                const lines = content.split('\n');
+                const newTransactions = [];
+                let currentTransaction = {};
+
+                lines.forEach(line => {
+                    const [key, value] = line.split(': ').map(item => item.trim());
+                    if (key === 'Тип') {
+                        if (Object.keys(currentTransaction).length > 0) {
+                            newTransactions.push(currentTransaction);
+                            currentTransaction = {};
+                        }
+                        currentTransaction.type = value;
+                    } else if (key === 'Сумма') {
+                        currentTransaction.amount = Number.parseFloat(value);
+                    } else if (key ==='Описание') {
+                        currentTransaction.description = value;
+                    } else if (key === 'Дата') {
+                        currentTransaction.date = value;
+                    } else if (key === 'Тема') {
+                        currentTransaction.theme = value;
+                    } else if (key === 'Цена покупки') {
+                        currentTransaction.buyPrice = Number.parseFloat(value) || null;
+                    } else if (key === 'Цена продажи') {
+                        currentTransaction.sellPrice = Number.parseFloat(value) || null;
+                    } else if (key === 'Комиссия') {
+                        currentTransaction.commission = Number.parseFloat(value) || null;
+                    }
+                });
+
+                if (Object.keys(currentTransaction).length > 0) {
+                    newTransactions.push(currentTransaction);
+                }
+
+                transactions = transactions.concat(newTransactions);
+                localStorage.setItem('transactions', JSON.stringify(transactions));
+                updateUI();
+                
+                // Create sparkles effect
+                createSparklesAround(document.querySelector('.nav-icon:nth-child(4)'), 15);
+                
+                // Show success message with animation
+                showNotification('Данные успешно импортированы', 'success');
+            } catch (e) {
+                showNotification('Ошибка при импорте данных', 'error');
+            }
+        }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+}
+
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.innerHTML = message;
+    document.body.appendChild(notification);
+    
+    // Animate in
+    setTimeout(() => {
+        notification.style.opacity = '1';
+        notification.style.transform = 'translateX(-50%) translateY(-10px)';
+    }, 10);
+    
+    // Animate out and remove
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        notification.style.transform = 'translateX(-50%) translateY(10px)';
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }, 3000);
+}
+
+function updateProfitLoss() {
+    const filteredTransactions = filterTransactionsByPeriod(transactions, currentPeriod);
+    let income = 0;
+    let expense = 0;
+    
+    filteredTransactions.forEach(t => {
+        const amount = convertCurrency(t.amount);
+        if (t.type === 'income') {
+            income += amount;
+        } else {
+            expense += amount;
+        }
+    });
+    
+    // Animate the income and expense changes
+    const incomeElement = document.getElementById('totalIncome');
+    const expenseElement = document.getElementById('totalExpense');
+    
+    const currentIncome = parseFloat(incomeElement.textContent.replace(/[^0-9.-]+/g, '')) || 0;
+    const currentExpense = parseFloat(expenseElement.textContent.replace(/[^0-9.-]+/g, '')) || 0;
+    
+    animateValue(incomeElement, currentIncome, income, 1000, getCurrencySymbol(currentCurrency));
+    animateValue(expenseElement, currentExpense, expense, 1000, getCurrencySymbol(currentCurrency));
+}
+
+function editTransaction(index) {
+    editingTransactionIndex = index;
+    const t = transactions[index];
+    document.getElementById('transactionType').value = t.theme ? 'advanced' : 'simple';
+    toggleTransactionFields();
+    
+    if (t.theme) {
+        document.getElementById('skinName').value = t.theme;
+        document.getElementById('buyPrice').value = t.buyPrice;
+        document.getElementById('sellPrice').value = t.sellPrice;
+        document.getElementById('profitPercentage').value = t.commission;
+        document.getElementById('advancedDate').value = t.date;
+        calculateProfit();
+    } else {
+        document.getElementById('type').value = t.type;
+        document.getElementById('amount').value = t.amount;
+        document.getElementById('description').value = t.description;
+        document.getElementById('date').value = t.date;
+    }
+    
+    openModal();
+    hasChanges = false;
+}
+
+function confirmDelete(index) {
+    if (confirm('Вы уверены, что хотите удалить эту транзакцию?')) {
+        deleteTransaction(index);
+    }
+}
+
+function deleteTransaction(index) {
+    // Create sparkles effect before removing
+    const transactionElement = document.querySelector(`.transaction-item[data-index="${index}"]`);
+    if (transactionElement) {
+        createSparklesAround(transactionElement, 15);
+        
+        // Animate removal
+        gsap.to(transactionElement, {
+            opacity: 0,
+            x: 100,
+            duration: 0.5,
+            ease: "power2.in",
+            onComplete: () => {
+                transactions.splice(index, 1);
+                localStorage.setItem('transactions', JSON.stringify(transactions));
+                updateUI();
+                
+                // Show notification
+                showNotification('Транзакция удалена', 'info');
+            }
+        });
+    } else {
+        transactions.splice(index, 1);
+        localStorage.setItem('transactions', JSON.stringify(transactions));
+        updateUI();
+        
+        // Show notification
+        showNotification('Транзакция удалена', 'info');
+    }
+}
+
+function openModal() {
+    const modal = document.getElementById('transactionModal');
+    modal.style.display = 'block';
+    
+    // Animate modal appearance
+    const modalContent = modal.querySelector('.modal-content');
+    gsap.fromTo(modalContent, 
+        { opacity: 0, y: 20, scale: 0.95 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.7)" }
+    );
+    
+    hasChanges = false;
+}
+
+function closeModal() {
+    const modal = document.getElementById('transactionModal');
+    const modalContent = modal.querySelector('.modal-content');
+    
+    // Animate modal disappearance
+    gsap.to(modalContent, {
+        opacity: 0,
+        y: 20,
+        scale: 0.95,
+        duration: 0.3,
+        ease: "power2.in",
+        onComplete: () => {
+            modal.style.display = 'none';
+            clearInputs();
+            editingTransactionIndex = null;
+            hasChanges = false;
+        }
+    });
+}
+
+function closeModalWithConfirmation() {
+    if (hasChanges) {
+        document.getElementById('confirmModal').style.display = 'block';
+        
+        // Animate confirm modal appearance
+        const confirmContent = document.querySelector('.confirm-modal-content');
+        gsap.fromTo(confirmContent, 
+            { opacity: 0, scale: 0.9 },
+            { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.7)" }
+        );
+    } else {
+        closeModal();
+    }
+}
+
+function confirmCloseModal(confirmed) {
+    const confirmModal = document.getElementById('confirmModal');
+    const confirmContent = confirmModal.querySelector('.confirm-modal-content');
+    
+    // Animate confirm modal disappearance
+    gsap.to(confirmContent, {
+        opacity: 0,
+        y: 20,
+        scale: 0.95,
+        duration: 0.2,
+        ease: "power2.in",
+        onComplete: () => {
+            confirmModal.style.display = 'none';
+            if (confirmed) {
+                closeModal();
+            }
+        }
+    });
+}
+
+function updateChart() {
+    const filteredTransactions = filterTransactionsByPeriod(transactions, currentPeriod);
+    
+    // Sort transactions by date
+    filteredTransactions.sort((a, b) => new Date(a.date) - new Date(b.date));
+    
+    // Calculate running balance
+    let balance = 0;
+    const labels = [];
+    const data = [];
+    
+    filteredTransactions.forEach(t => {
+        const amount = convertCurrency(t.amount);
+        balance = t.type === 'income' ? balance + amount : balance - amount;
+        labels.push(new Date(t.date).toLocaleDateString('ru-RU', { 
+            month: 'short', 
+            day: 'numeric' 
+        }));
+        data.push(balance);
+    });
+
+    chart.data.labels = labels;
+    chart.data.datasets[0].data = data;
+    chart.update();
+}
+
+function updateUI() {
+    updateBalance();
+    updateProfitLoss();
+    updateChart();
+    renderTransactions();
+    renderCalendar();
+}
+
+function changePeriod(period) {
+    currentPeriod = period;
+    
+    // Update active button with animation
+    document.querySelectorAll('.btn-group .btn').forEach(btn => {
+        if (btn.textContent.toLowerCase() === period || 
+            (period === 'all' && btn.textContent === 'Все')) {
+            
+            // Animate the button becoming active
+            gsap.fromTo(btn, 
+                { scale: 1 },
+                { 
+                    scale: 1.1, 
+                    duration: 0.2, 
+                    ease: "back.out(1.7)",
+                    onComplete: () => {
+                        gsap.to(btn, { scale: 1, duration: 0.1 });
+                    }
+                }
+            );
+            
+            btn.classList.add('btn-active');
+            createSparklesAround(btn, 5);
+        } else {
+            btn.classList.remove('btn-active');
+        }
+    });
+    
+    updateUI();
+}
+
+function filterTransactionsByPeriod(transactions, period) {
+    const now = new Date();
+    let startDate;
+
+    switch(period) {
+        case 'day':
+            startDate = new Date(now);
+            startDate.setHours(0, 0, 0, 0);
+            break;
+        case 'week':
+            startDate = new Date(now);
+            startDate.setDate(now.getDate() - 7);
+            break;
+        case 'month':
+            startDate = new Date(now);
+            startDate.setMonth(now.getMonth() - 1);
+            break;
+        default:
+            return [...transactions];
+    }
+
+    return transactions.filter(t => new Date(t.date) >= startDate);
+}
+
+function filterTransactions() {
+    const searchDate = document.getElementById('searchDate').value;
+    if (!searchDate) {
+        renderTransactions();
+        return;
+    }
+
+    const filteredTransactions = transactions.filter(t => 
+        t.date === searchDate
+    );
+    
+    const container = document.getElementById('transactions');
+    if (filteredTransactions.length === 0) {
+        container.innerHTML = `
+            <div class="transaction-item" style="justify-content: center; text-align: center;">
+                <p>Нет транзакций на выбранную дату</p>
+            </div>
+        `;
+        return;
+    }
+    
+    container.innerHTML = filteredTransactions.map((t, i) => `
+        <div class="transaction-item" data-index="${transactions.indexOf(t)}">
+            <div class="transaction-info">
+                <h4>${t.description}</h4>
+                <small>${new Date(t.date).toLocaleDateString()}</small>
+            </div>
+            <div class="transaction-actions">
+                <span class="transaction-amount ${t.type === 'income' ? 'amount-positive' : 'amount-negative'}">
+                    ${t.type === 'income' ? '+' : '-'}${formatCurrency(convertCurrency(t.amount))}
+                </span>
+                <button onclick="editTransaction(${transactions.indexOf(t)})" class="btn btn-secondary btn-icon">
+                    <ion-icon name="create-outline"></ion-icon>
+                </button>
+                <button onclick="confirmDelete(${transactions.indexOf(t)})" class="btn btn-secondary btn-icon">
+                    <ion-icon name="trash-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+    `).join('');
+    
+    // Add animation to filtered items
+    const items = document.querySelectorAll('.transaction-item');
+    items.forEach((item, index) => {
+        item.style.animationDelay = `${index * 0.05}s`;
+        
+        // Add hover effect listeners for sparkles
+        item.addEventListener('mouseenter', function() {
+            createSparklesAround(this, 5);
+        });
+    });
+    
+    // Show notification
+    showNotification(`Найдено ${filteredTransactions.length} транзакций`, 'info');
+}
+
+function clearInputs() {
+    document.getElementById('type').value = 'income';
+    document.getElementById('amount').value = '';
+    document.getElementById('description').value = '';
+    document.getElementById('date').value = '';
+    document.getElementById('skinName').value = '';
+    document.getElementById('buyPrice').value = '';
+    document.getElementById('sellPrice').value = '';
+    document.getElementById('profitPercentage').value = '2';
+    document.getElementById('advancedDate').value = '';
+    document.getElementById('calculationResult').innerHTML = '';
+    document.getElementById('calculationResult').style.display = 'none';
+    document.getElementById('addAdvancedTransactionBtn').style.display = 'none';
+    document.getElementById('addTransactionBtn').style.display = 'block';
+}
+
+function toggleTransactionFields() {
+    const type = document.getElementById('transactionType').value;
+    const simpleFields = document.getElementById('simpleTransactionFields');
+    const advancedFields = document.getElementById('advancedTransactionFields');
+    const calculationResult = document.getElementById('calculationResult');
+    
+    if (type === 'simple') {
+        // Animate transition
+        gsap.to(advancedFields, { opacity: 0, height: 0, duration: 0.3, display: 'none' });
+        gsap.fromTo(simpleFields, 
+            { opacity: 0, height: 0 },
+            { opacity: 1, height: 'auto', duration: 0.3, display: 'block' }
+        );
+        
+        document.getElementById('addTransactionBtn').style.display = 'block';
+        document.getElementById('addAdvancedTransactionBtn').style.display = 'none';
+    } else {
+        // Animate transition
+        gsap.to(simpleFields, { opacity: 0, height: 0, duration: 0.3, display: 'none' });
+        gsap.fromTo(advancedFields, 
+            { opacity: 0, height: 0 },
+            { opacity: 1, height: 'auto', duration: 0.3, display: 'block' }
+        );
+        
+        document.getElementById('addTransactionBtn').style.display = 'none';
+        
+        // Preserve calculation result if it exists
+        if (calculationResult.innerHTML !== '') {
+            calculationResult.style.display = 'block';
+            document.getElementById('addAdvancedTransactionBtn').style.display = 'block';
+        }
+    }
+}
+
+function createSparklesAround(element, count = 10) {
+    if (!element) return;
+    
+    const rect = element.getBoundingClientRect();
+    
+    for (let i = 0; i < count; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        
+        // Random position around the element
+        const angle = Math.random() * Math.PI * 2;
+        const distance = Math.random() * 50 + 20;
+        const x = rect.left + rect.width / 2 + Math.cos(angle) * distance;
+        const y = rect.top + rect.height / 2 + Math.sin(angle) * distance;
+        
+        sparkle.style.left = `${x}px`;
+        sparkle.style.top = `${y}px`;
+        
+        document.body.appendChild(sparkle);
+        
+        // Animate the sparkle
+        gsap.to(sparkle, {
+            scale: Math.random() * 2 + 1,
+            opacity: 1,
+            duration: 0.3,
+            ease: "power1.out",
+            onComplete: () => {
+                gsap.to(sparkle, {
+                    scale: 0,
+                    opacity: 0,
+                    duration: 0.5,
+                    delay: Math.random() * 0.5,
+                    ease: "power1.in",
+                    onComplete: () => {
+                        sparkle.remove();
+                    }
+                });
+            }
+        });
+    }
+}
+
+function toggleTheme() {
+    const root = document.documentElement;
+    const currentTheme = root.classList.contains('light-theme') ? 'dark' : 'light';
+    root.classList.toggle('light-theme');
+
+    const tl = gsap.timeline();
+
+    if (currentTheme === 'light') {
+        // Анимация от солнца к луне
+        tl.to("#sun, #sun-ray-1, #sun-ray-2, #sun-ray-3, #sun-ray-4, #sun-ray-5, #sun-ray-6, #sun-ray-7, #sun-ray  #sun-ray-1, #sun-ray-2, #sun-ray-3, #sun-ray-4, #sun-ray-5, #sun-ray-6, #sun-ray-7, #sun-ray-8", {duration: 0.3, opacity: 0})
+          .to("#moon", {duration: 0.5, morphSVG: "M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z", ease: "power2.inOut"}, "-=0.3");
+    } else {
+        // Анимация от луны к солнцу
+        tl.to("#moon", {duration: 0.5, morphSVG: "M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10z", ease: "power2.inOut"})
+          .to("#sun", {duration: 0.1, opacity: 1})
+          .to("#sun-ray-1, #sun-ray-2, #sun-ray-3, #sun-ray-4, #sun-ray-5, #sun-ray-6, #sun-ray-7, #sun-ray-8", {duration: 0.3, opacity: 1, stagger: 0.05}, "-=0.1");
+    }
+
+    // Создаем эффект вспышки при смене темы
+    const flash = document.createElement('div');
+    flash.style.position = 'fixed';
+    flash.style.top = '0';
+    flash.style.left = '0';
+    flash.style.width = '100%';
+    flash.style.height = '100%';
+    flash.style.backgroundColor = currentTheme === 'light' ? 'rgba(15, 23, 42, 0.2)' : 'rgba(255, 255, 255, 0.2)';
+    flash.style.zIndex = '9998';
+    flash.style.pointerEvents = 'none';
+    document.body.appendChild(flash);
+    
+    gsap.to(flash, {
+        opacity: 0,
+        duration: 0.5,
+        onComplete: () => {
+            flash.remove();
+        }
+    });
+    
+    // Создаем эффект искр при смене темы
+    createSparklesAround(document.querySelector('.theme-toggle'), 20);
+
+    // Обновляем цвета графика
+    updateChartColors();
+}
+
+function updateChartColors() {
+    const root = document.documentElement;
+    const isDarkTheme = !root.classList.contains('light-theme');
+
+    const newChartOptions = {
+        scales: {
+            x: { 
+                grid: { color: isDarkTheme ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' },
+                ticks: { color: isDarkTheme ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.5)' }
+            },
+            y: { 
+                grid: { color: isDarkTheme ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' },
+                ticks: { 
+                    color: isDarkTheme ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.5)',
+                    callback: value => formatCurrency(value)
+                }
+            }
+        },
+        plugins: {
+            tooltip: {
+                backgroundColor: isDarkTheme ? 'rgba(15,23,42,0.9)' : 'rgba(248,250,252,0.9)',
+                bodyColor: isDarkTheme ? '#fff' : '#000',
+                borderColor: isDarkTheme ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)',
+            }
+        }
+    };
+
+    chart.options.scales.x.grid.color = newChartOptions.scales.x.grid.color;
+    chart.options.scales.x.ticks.color = newChartOptions.scales.x.ticks.color;
+    chart.options.scales.y.grid.color = newChartOptions.scales.y.grid.color;
+    chart.options.scales.y.ticks.color = newChartOptions.scales.y.ticks.color;
+    chart.options.plugins.tooltip = newChartOptions.plugins.tooltip;
+    chart.update();
+    
+    // Обновляем цвета месячного графика, если он существует
+    if (monthlyProfitChart) {
+        monthlyProfitChart.options.scales.x.grid.color = newChartOptions.scales.x.grid.color;
+        monthlyProfitChart.options.scales.x.ticks.color = newChartOptions.scales.x.ticks.color;
+        monthlyProfitChart.options.scales.y.grid.color = newChartOptions.scales.y.grid.color;
+        monthlyProfitChart.options.scales.y.ticks.color = newChartOptions.scales.y.ticks.color;
+        monthlyProfitChart.options.plugins.tooltip = newChartOptions.plugins.tooltip;
+        monthlyProfitChart.update();
+    }
+}
+
+function switchToCalendar() {
+    const chartContainer = document.querySelector('.chart-container');
+    const calendarContainer = document.querySelector('.calendar-container');
+    const rightButton = document.querySelector('.switch-view.right');
+    const leftButton = document.querySelector('.switch-view.left');
+
+    gsap.to(chartContainer, { 
+        opacity: 0, 
+        x: -50,
+        duration: 0.5, 
+        ease: "power2.inOut",
+        onComplete: () => {
+            chartContainer.style.display = 'none';
+            calendarContainer.style.display = 'block';
+            gsap.fromTo(calendarContainer, 
+                { opacity: 0, x: 50 }, 
+                { opacity: 1, x: 0, duration: 0.5, ease: "power2.out" }
+            );
+        }
+    });
+
+    rightButton.style.display = 'none';
+    leftButton.style.display = 'flex';
+    renderCalendar();
+    
+    // Create sparkles effect
+    createSparklesAround(rightButton, 10);
+}
+
+function switchToChart() {
+    const chartContainer = document.querySelector('.chart-container');
+    const calendarContainer = document.querySelector('.calendar-container');
+    const rightButton = document.querySelector('.switch-view.right');
+    const leftButton = document.querySelector('.switch-view.left');
+
+    gsap.to(calendarContainer, { 
+        opacity: 0, 
+        x: 50,
+        duration: 0.5, 
+        ease: "power2.inOut",
+        onComplete: () => {
+            calendarContainer.style.display = 'none';
+            chartContainer.style.display = 'block';
+            gsap.fromTo(chartContainer, 
+                { opacity: 0, x: -50 }, 
+                { opacity: 1, x: 0, duration: 0.5, ease: "power2.out" }
+            );
+        }
+    });
+
+    leftButton.style.display = 'none';
+    rightButton.style.display = 'flex';
+    
+    // Create sparkles effect
+    createSparklesAround(leftButton, 10);
+}
+
+function renderCalendar() {
+    if (!document.getElementById('calendarGrid')) return;
+    const calendarGrid = document.getElementById('calendarGrid');
+    const currentMonthElement = document.getElementById('currentMonth');
+
+    // Очищаем текущий календарь
+    calendarGrid.innerHTML = '';
+
+    // Устанавливаем текущий месяц и год
+    currentMonthElement.textContent = currentDate.toLocaleString('default', { month: 'long', year: 'numeric' });
+
+    // Получаем первый день месяца
+    const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+    const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+
+    // Добавляем дни недели
+    const weekdays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+    weekdays.forEach(day => {
+        const dayElement = document.createElement('div');
+        dayElement.className = 'calendar-day';
+        dayElement.textContent = day;
+        calendarGrid.appendChild(dayElement);
+    });
+
+    // Добавляем пустые ячейки до первого дня месяца
+    for (let i = 0; i < (firstDay.getDay() || 7) - 1; i++) {
+        const emptyDay = document.createElement('div');
+        emptyDay.className = 'calendar-day';
+        calendarGrid.appendChild(emptyDay);
+    }
+
+    // Добавляем дни месяца с анимацией
+    for (let i = 1; i <= lastDay.getDate(); i++) {
+        const dayElement = document.createElement('div');
+        dayElement.className = 'calendar-day';
+        dayElement.style.opacity = 0;
+        dayElement.style.transform = 'scale(0.8)';
+        
+        const dayNumber = document.createElement('div');
+        dayNumber.className = 'day-number';
+        dayNumber.textContent = i;
+        
+        const dayBalance = document.createElement('div');
+        dayBalance.className = 'day-balance';
+        
+        const currentDayTransactions = transactions.filter(t => {
+            const transactionDate = new Date(t.date);
+            return transactionDate.getDate() === i &&
+                   transactionDate.getMonth() === currentDate.getMonth() &&
+                   transactionDate.getFullYear() === currentDate.getFullYear();
+        });
+        
+        let dayTotal = 0;
+        currentDayTransactions.forEach(t => {
+            const amount = convertCurrency(t.amount);
+            dayTotal = t.type === 'income' ? dayTotal + amount : dayTotal - amount;
+        });
+        
+        if (dayTotal !== 0) {
+            dayBalance.textContent = `${dayTotal > 0 ? '+' : ''}${formatCurrency(dayTotal)}`;
+            dayBalance.classList.add(dayTotal > 0 ? 'positive-balance' : 'negative-balance');
+        }
+        
+        dayElement.appendChild(dayNumber);
+        dayElement.appendChild(dayBalance);
+        
+        if (i === new Date().getDate() && 
+            currentDate.getMonth() === new Date().getMonth() && 
+            currentDate.getFullYear() === new Date().getFullYear()) {
+            dayElement.classList.add('today');
+        }
+        
+        // Добавляем обработчик клика для фильтрации транзакций по дате
+        dayElement.addEventListener('click', function() {
+            const selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), i);
+            document.getElementById('searchDate').value = selectedDate.toISOString().split('T')[0];
+            filterTransactions();
+            switchToChart();
+            
+            // Create sparkles effect
+            createSparklesAround(this, 10);
+        });
+        
+        calendarGrid.appendChild(dayElement);
+        
+        // Анимируем появление дня с задержкой
+        gsap.to(dayElement, {
+            opacity: 1,
+            scale: 1,
+            duration: 0.3,
+            delay: i * 0.02,
+            ease: "back.out(1.7)"
+        });
+    }
+}
+
+function changeMonth(delta) {
+    currentDate.setMonth(currentDate.getMonth() + delta);
+    
+    // Анимируем смену месяца
+    const calendarGrid = document.getElementById('calendarGrid');
+    const currentMonthElement = document.getElementById('currentMonth');
+    
+    gsap.to(calendarGrid, {
+        opacity: 0,
+        scale: delta > 0 ? 0.9 : 1.1,
+        x: delta > 0 ? -30 : 30,
+        duration: 0.3,
+        onComplete: () => {
+            renderCalendar();
+            gsap.fromTo(calendarGrid, 
+                { opacity: 0, scale: delta > 0 ? 1.1 : 0.9, x: delta > 0 ? 30 : -30 }, 
+                { opacity: 1, scale: 1, x: 0, duration: 0.3 }
+            );
+        }
+    });
+    
+    // Анимируем заголовок месяца
+    gsap.to(currentMonthElement, {
+        opacity: 0,
+        y: delta > 0 ? -20 : 20,
+        duration: 0.3,
+        onComplete: () => {
+            currentMonthElement.textContent = currentDate.toLocaleString('default', { month: 'long', year: 'numeric' });
+            gsap.fromTo(currentMonthElement, 
+                { opacity: 0, y: delta > 0 ? 20 : -20 }, 
+                { opacity: 1, y: 0, duration: 0.3 }
+            );
+        }
+    });
+}
+
+function openStatsModal() {
+    document.getElementById('statsModal').style.display = 'block';
+    
+    // Анимируем появление модального окна
+    const modalContent = document.querySelector('#statsModal .modal-content');
+    gsap.fromTo(modalContent, 
+        { opacity: 0, y: 20, scale: 0.95 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.7)" }
+    );
+    
+    updateStats();
+    
+    // Скрываем расширенную статистику при открытии
+    const advancedStats = document.getElementById('advancedStats');
+    if (advancedStats) {
+        advancedStats.style.display = 'none';
+    }
+    
+    // Create sparkles effect
+    createSparklesAround(document.querySelector('.btn-primary.btn-large'), 15);
+}
+
+function closeStatsModal() {
+    const modal = document.getElementById('statsModal');
+    const modalContent = modal.querySelector('.modal-content');
+    
+    // Анимируем исчезновение модального окна
+    gsap.to(modalContent, {
+        opacity: 0,
+        y: 20,
+        scale: 0.95,
+        duration: 0.3,
+        ease: "power2.in",
+        onComplete: () => {
+            modal.style.display = 'none';
+        }
+    });
+}
+
+function updateStats() {
+    const now = new Date();
+    const today = now.toISOString().split('T')[0];
+    
+    const yesterday = new Date(now);
+    yesterday.setDate(yesterday.getDate() - 1);
+    const yesterdayStr = yesterday.toISOString().split('T')[0];
+    
+    const weekAgo = new Date(now);
+    weekAgo.setDate(weekAgo.getDate() - 7);
+    
+    const monthAgo = new Date(now);
+    monthAgo.setMonth(monthAgo.getMonth() - 1);
+
+    const todayStats = calculateStats(transactions.filter(t => t.date === today));
+    const yesterdayStats = calculateStats(transactions.filter(t => t.date === yesterdayStr));
+    const weekStats = calculateStats(transactions.filter(t => new Date(t.date) >= weekAgo));
+    const monthStats = calculateStats(transactions.filter(t => new Date(t.date) >= monthAgo));
+    const totalStats = calculateStats(transactions);
+
+    // Анимируем обновление статистики
+    animateValue(document.getElementById('todayEarnings'), 0, todayStats.earnings, 1000, getCurrencySymbol(currentCurrency));
+    document.getElementById('todayDeals').textContent = `${todayStats.deals} сделок`;
+    
+    animateValue(document.getElementById('yesterdayEarnings'), 0, yesterdayStats.earnings, 1000, getCurrencySymbol(currentCurrency));
+    document.getElementById('yesterdayDeals').textContent = `${yesterdayStats.deals} сделок`;
+    
+    animateValue(document.getElementById('weekEarnings'), 0, weekStats.earnings, 1000, getCurrencySymbol(currentCurrency));
+    document.getElementById('weekDeals').textContent = `${weekStats.deals} сделок`;
+    
+    animateValue(document.getElementById('monthEarnings'), 0, monthStats.earnings, 1000, getCurrencySymbol(currentCurrency));
+    document.getElementById('monthDeals').textContent = `${monthStats.deals} сделок`;
+    
+    animateValue(document.getElementById('totalEarnings'), 0, totalStats.earnings, 1000, getCurrencySymbol(currentCurrency));
+    document.getElementById('totalDeals').textContent = `${totalStats.deals} сделок`;
+    
+    // Добавляем классы для стилизации положительных/отрицательных значений
+    document.getElementById('todayEarnings').className = todayStats.earnings >= 0 ? 'positive' : 'negative';
+    document.getElementById('yesterdayEarnings').className = yesterdayStats.earnings >= 0 ? 'positive' : 'negative';
+    document.getElementById('weekEarnings').className = weekStats.earnings >= 0 ? 'positive' : 'negative';
+    document.getElementById('monthEarnings').className = monthStats.earnings >= 0 ? 'positive' : 'negative';
+    document.getElementById('totalEarnings').className = totalStats.earnings >= 0 ? 'positive' : 'negative';
+}
+
+function calculateStats(transactions) {
+    let income = 0;
+    let expense = 0;
+    
+    transactions.forEach(t => {
+        const amount = convertCurrency(t.amount);
+        if (t.type === 'income') {
+            income += amount;
+        } else {
+            expense += amount;
+        }
+    });
+    
+    const earnings = income - expense;
+    const deals = transactions.length;
+    return { earnings, deals };
+}
+
+// Функция для отслеживания движения мыши и создания эффекта свечения курсора
+function initGlowCursor() {
+    const cursor = document.querySelector('.glow-cursor');
+    
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = `${e.clientX - 15}px`;
+        cursor.style.top = `${e.clientY - 15}px`;
+        cursor.style.opacity = '1';
+        
+        // Проверяем, находится ли курсор над интерактивным элементом
+        const target = e.target;
+        const isInteractive = 
+            target.tagName === 'BUTTON' || 
+            target.tagName === 'A' || 
+            target.classList.contains('btn') ||
+            target.classList.contains('card') ||
+            target.classList.contains('transaction-item') ||
+            target.classList.contains('calendar-day') ||
+            target.closest('.btn') ||
+            target.closest('.card') ||
+            target.closest('.transaction-item') ||
+            target.closest('.calendar-day');
+        
+        if (isInteractive) {
+            cursor.style.transform = 'scale(1.5)';
+            cursor.style.mixBlendMode = 'screen';
+        } else {
+            cursor.style.transform = 'scale(1)';
+            cursor.style.mixBlendMode = 'screen';
+        }
+    });
+    
+    document.addEventListener('mouseout', () => {
+        cursor.style.opacity = '0';
+    });
+}
+
+function createParticles() {
+    const particlesContainer = document.createElement('div');
+    particlesContainer.className = 'particles-container';
+    document.body.appendChild(particlesContainer);
+
+    for (let i = 0; i < 30; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = `${Math.random() * 100}vw`;
+        particle.style.top = `${Math.random() * 100}vh`;
+        particle.style.opacity = Math.random() * 0.5 + 0.1;
+        
+        // Add random animation
+        const duration = Math.random() * 20 + 10;
+        const delay = Math.random() * 5;
+        
+        gsap.to(particle, {
+            x: Math.random() * 100 - 50,
+            y: Math.random() * 100 - 50,
+            duration: duration,
+            delay: delay,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        });
+        
+        particlesContainer.appendChild(particle);
+    }
+}
+
+function createStars() {
+    const starsContainer = document.createElement('div');
+    starsContainer.className = 'stars-container';
+    document.body.appendChild(starsContainer);
+
+    for (let i = 0; i < 30; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = `${Math.random() * 100}vw`;
+        star.style.animationDuration = `${Math.random() * 10 + 5}s`;
+        star.style.animationDelay = `${Math.random() * 5}s`;
+        starsContainer.appendChild(star);
+    }
+}
+
+// Запускаем обновление курсов валют при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    // Устанавливаем текущую дату по умолчанию
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('date').value = today;
+    document.getElementById('advancedDate').value = today;
+    
+    // Инициализируем график и обновляем UI
+    initChart();
+    
+    // Загружаем курсы валют
+    fetchExchangeRates().then(() => {
+        updateUI();
+    });
+    
+    // Создаем визуальные эффекты
+    createParticles();
+    createStars();
+    initGlowCursor();
+    
+    // Скрываем левую кнопку переключения вида
+    document.querySelector('.switch-view.left').style.display = 'none';
+    
+    // Устанавливаем интервал для обновления курсов валют (раз в день)
+    setInterval(fetchExchangeRates, 24 * 60 * 60 * 1000);
+});
+</script>
+</body>
+</html>
